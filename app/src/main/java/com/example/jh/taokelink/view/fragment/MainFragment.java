@@ -23,7 +23,7 @@ public class MainFragment extends BaseFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // 创建请求对象。
+        // 创建请求对象。。
         Request<String> request = NoHttp.createStringRequest("http://wakeup.s1.natapp.cc"+"/api/search", RequestMethod.POST);
         if (request != null) {
 //            request.add("type", "hot");//哪个种类的数据
