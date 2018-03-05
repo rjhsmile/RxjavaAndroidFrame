@@ -1,0 +1,26 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!--直线-->
+    <style name="line">
+        <item name="android:layout_height">0.5dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@color/color_line</item>
+    </style>
+
+    <!--APP去除顶部 状态栏-->
+    <style name="Theme.NoSystemStatusBar" parent="AppTheme">
+        <!--状态栏和toolbar分开-->
+        <!--<item name="android:windowIsTranslucent">true</item>-->
+        <!-- 状态栏和toolbar连在一起-->
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
+</resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+    <string-array name="tabNames">
+        <item>首页</item>
+        <item>搜索</item>
+        <item>分类</item>
+        <item>我的</item>
+    </string-array>
+</resources>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--黑色-->
+    <color name="black">#FF000000</color>
+    <color name="black_gray">#333333</color>
+    <color name="black_light">#666666</color>
+    <color name="black_light_light">#999999</color>
+    <color name="gray">#ffefefef</color>
+    <color name="color_line">#dddddd</color>
+    <color name="gray_light">#f5f5f5</color>
+    <color name="gray_line_color">#cccccc</color>
+    <color name="status_bar">#cccccc</color>
+    <color name="border_gray">#c8c8c8</color>
+    <color name="blue">#20afe6</color>
+    <color name="light_blue">#6593cb</color>
+    <color name="yellow">#FFFF00</color>
+    <color name="home_detail">#fafafa</color>
+    <color name="coler_bg">#ffefefef</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <!--绿色-->
+    <color name="green">#ff669900</color>
+    <!--白色-->
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="red">#ffff4444</color>
+
+    <color name="orange">#FFA500</color>
+    <color name="red_text">#ff5d5e</color>
+    <color name="red_light">#F6295C</color>
+    <color name="theme_red">#ffff4444</color>
+    <color name="purple">#A020F0</color>
+
+    <color name="loading">#F1F1F1</color>
+
+    <color name="more_list_item_text_color">#b995a0</color>
+
+    <color name="color_menu_back">#F3F2F2</color>
+    <color name="color_menu_lines">#CDCACA</color>
+    <!--跑马灯背景-->
+    <color name="marqueebackgroud">#fdf9dc</color>
+    <!-- 跑马灯字体颜色-->
+    <color name="marquetextcolor">#694014</color>
+</resources>

@@ -1,0 +1,76 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "com.example.jh.taokelink"
+        minSdkVersion 21
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+allprojects {
+    repositories {
+        jcenter()
+        maven {
+            url "http://repo.baichuan-android.taobao.com/content/groups/BaichuanRepositories/"
+        }
+    }
+}
+
+
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:26.0.2'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support:design:26.1.0'
+    testImplementation 'junit:junit:4.12'
+
+    //butterknife2个引用
+    compile 'com.jakewharton:butterknife:8.6.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
+
+    //RecyclerView的使用
+    compile 'com.android.support:recyclerview-v7:26.0.2'
+    //NoHttp网络框架
+    compile 'com.yanzhenjie.nohttp:nohttp:1.1.1'
+    compile 'com.alibaba:fastjson:1.2.9'
+
+    //阿里百川第三方引用
+    //fastjson
+    compile 'com.alibaba:fastjson:1.2.9'
+    //支付
+    compile 'com.alibaba.alipay:alipaySingle:20160825@jar'
+    //登陆
+    compile 'com.ali.auth.sdk:alibabauth_core:1.4.3@jar'
+    compile 'com.ali.auth.sdk:alibabauth_ui:1.4.3@aar'
+    compile 'com.ali.auth.sdk:alibabauth_ext:1.4.3@jar'
+    //【可选】仅供特殊合作伙伴使用
+    //compile 'com.ali.auth.sdk:alibabauth_accountlink:1.1.4@jar'
+    //安全基础
+    compile 'com.taobao.android:securityguardaar3:5.1.81@aar'
+    //【可选】安全高级，如使用了发放红包、优惠券高级功能，则必须引入
+    //compile 'com.taobao.android:securitybodyaar3:5.1.25@aar'
+    //Mtop网关
+    compile 'com.taobao.android:mtopsdk_allinone_open:1.2.2.4@jar'
+    //applink
+    compile 'com.alibaba.sdk.android:alibc_link_partner:1.1.0.0'
+    //UT
+    compile 'com.taobao.android:utdid4all:1.1.5.3_proguard@jar'
+    compile 'com.alibaba.mtl:app-monitor-sdk:2.5.1.3_for_bc_proguard@jar'
+    //联盟SDK
+    compile 'com.alimama.tunion.sdk:tuniontradesdk:0.3.2@aar'
+    //电商SDK
+    compile 'com.alibaba.sdk.android:alibc_trade_common:3.1.1.206'
+    compile 'com.alibaba.sdk.android:alibc_trade_biz:3.1.1.206'
+    compile 'com.alibaba.sdk.android:alibc_trade_sdk:3.1.1.206'
+}
