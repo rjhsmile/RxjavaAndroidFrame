@@ -23,4 +23,16 @@
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
+    <!--APP启动时没有白屏-->
+    <style name="Theme.AppStartLoadTranslucent" parent="AppTheme">
+        <!--状态栏和toolbar分开-->
+        <!--<item name="android:windowIsTranslucent">true</item>-->
+        <!-- 状态栏和toolbar连在一起-->
+        <item name="android:windowTranslucentStatus">true</item>
+
+        <!--解决启动白屏问题，左侧快速启动，通常用于欢迎页-->
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
 </resources>

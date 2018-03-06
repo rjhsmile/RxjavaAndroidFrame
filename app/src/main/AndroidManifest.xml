@@ -15,7 +15,7 @@
 
         <activity
             android:name=".view.activity.GuideActivity"
-            android:theme="@style/Theme.NoSystemStatusBar">
+            android:theme="@style/Theme.AppStartLoadTranslucent">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

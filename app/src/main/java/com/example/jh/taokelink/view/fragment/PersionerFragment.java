@@ -15,7 +15,13 @@ import com.example.jh.taokelink.BaseFragment;
 
 public class PersionerFragment extends BaseFragment {
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void initView() {
+
     }
+
+    @Override
+    protected int getLayoutResource() {
+        return 0;
+    }
+
 }
