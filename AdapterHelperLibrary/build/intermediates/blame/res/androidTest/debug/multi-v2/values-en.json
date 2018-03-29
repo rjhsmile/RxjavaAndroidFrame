@@ -1,31 +1,16 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\ASWorkSpace\\TaoKeLink\\AdapterHelperLibrary\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-en\\values-en.xml",
-            "map": [
-                {
-                    "source": "D:\\ASWorkSpace\\TaoKeLink\\AdapterHelperLibrary\\build\\intermediates\\bundles\\debug\\res\\values-en\\values-en.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "46",
-                        "endOffsets": "97"
-                    }
-                }
-            ]
-        },
-        {
             "outputFile": "D:\\ASWorkSpace\\FrameDemo\\AdapterHelperLibrary\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-en\\values-en.xml",
             "map": [
                 {
                     "source": "D:\\ASWorkSpace\\FrameDemo\\AdapterHelperLibrary\\build\\intermediates\\bundles\\debug\\res\\values-en\\values-en.xml",
                     "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "46",
-                        "endOffsets": "97"
+                        "startLines": "2,3,4",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "55,111,174",
+                        "endColumns": "55,62,52",
+                        "endOffsets": "106,169,222"
                     }
                 }
             ]
