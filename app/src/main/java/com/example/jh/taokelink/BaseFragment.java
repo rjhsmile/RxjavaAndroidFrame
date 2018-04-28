@@ -16,6 +16,7 @@ import com.yanzhenjie.nohttp.rest.RequestQueue;
 
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 import static com.yanzhenjie.nohttp.rest.CacheMode.REQUEST_NETWORK_FAILED_READ_CACHE;
 
@@ -30,6 +31,7 @@ public abstract class BaseFragment extends Fragment {
     RequestQueue mQueue = NoHttp.newRequestQueue(1);
     private Activity mActivity;
     private View mCacheView;
+    private Unbinder unbinder;
 
     protected abstract void initView();
 
@@ -60,7 +62,7 @@ public abstract class BaseFragment extends Fragment {
         if (parent != null) {
             parent.removeView(mCacheView);
         }
-        ButterKnife.bind(this, mCacheView);
+        unbinder= ButterKnife.bind(this, mCacheView);
 
         initView();
 
@@ -87,11 +89,12 @@ public abstract class BaseFragment extends Fragment {
     }
 
     @Override
-    public void onDestroy() {
+    public void onDestroyView() {
+        super.onDestroyView();
         // 和声明周期绑定，退出时取消这个队列中的所有请求，当然可以在你想取消的时候取消也可以，不一定和声明周期绑定。
         mQueue.cancelBySign(object);
         // 因为回调函数持有了activity，所以退出activity时请停止队列。
         mQueue.stop();
-        super.onDestroy();
+        unbinder.unbind();
     }
 }
