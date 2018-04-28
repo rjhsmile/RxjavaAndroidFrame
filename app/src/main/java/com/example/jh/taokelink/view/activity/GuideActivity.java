@@ -1,17 +1,8 @@
 package com.example.jh.taokelink.view.activity;
 
-import android.app.ActionBar;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -24,12 +15,8 @@ import android.widget.Toast;
 import com.example.jh.taokelink.Adapter.InnerAdapter;
 import com.example.jh.taokelink.BaseActivity;
 import com.example.jh.taokelink.R;
-import com.example.jh.taokelink.utils.Keys;
 import com.example.jh.taokelink.utils.SPUtils;
 import com.example.jh.taokelink.utils.SplashView;
-
-import java.security.Key;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -41,7 +28,7 @@ public class GuideActivity extends BaseActivity implements ViewPager.OnPageChang
     @BindView(R.id.viewpager)
     ViewPager mViewPager;
     @BindView(R.id.point_group)
-    LinearLayout mPointGroup ;
+    LinearLayout mPointGroup;
     @BindView(R.id.red_point)
     ImageView mRedPoint;
 
@@ -56,7 +43,7 @@ public class GuideActivity extends BaseActivity implements ViewPager.OnPageChang
     @Override
     protected void initView() {
         //1.读取状态信息？
-        SPUtils spUtils = new SPUtils(this, Keys.next_activity);
+        SPUtils spUtils = new SPUtils(this, "shared_preferences");
         boolean isUsed = spUtils.getBoolean("isUsed", false);
         //2.根据使用状态，启动下个页面
         if (isUsed) {//表示使用过
@@ -182,5 +169,10 @@ public class GuideActivity extends BaseActivity implements ViewPager.OnPageChang
                 finish();
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 }

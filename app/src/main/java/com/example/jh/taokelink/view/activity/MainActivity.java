@@ -1,38 +1,19 @@
 package com.example.jh.taokelink.view.activity;
 
 import android.os.Build;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.example.jh.taokelink.BaseActivity;
 import com.example.jh.taokelink.R;
-import com.example.jh.taokelink.utils.ApiContents;
 import com.example.jh.taokelink.utils.CostomFragmentTabHost;
-import com.example.jh.taokelink.utils.SplashView;
-import com.example.jh.taokelink.utils.StringUtils;
-import com.example.jh.taokelink.utils.UiUtils;
-import com.example.jh.taokelink.utils.nohttps.HttpListener;
-import com.example.jh.taokelink.utils.nohttps.JsonUtils;
 import com.example.jh.taokelink.view.fragment.ChoiceFragment;
 import com.example.jh.taokelink.view.fragment.FenleiFragment;
 import com.example.jh.taokelink.view.fragment.MainFragment;
 import com.example.jh.taokelink.view.fragment.PersionerFragment;
-import com.yanzhenjie.nohttp.NoHttp;
-import com.yanzhenjie.nohttp.RequestMethod;
-import com.yanzhenjie.nohttp.rest.Request;
-import com.yanzhenjie.nohttp.rest.Response;
-
-import java.text.ChoiceFormat;
-
 import butterknife.BindView;
-import butterknife.ButterKnife;
-
 
 public class MainActivity extends BaseActivity {
 

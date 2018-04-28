@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 import com.example.jh.taokelink.BaseFragment;
+import com.example.jh.taokelink.R;
 
 /**
  * @author：rjhsmile
@@ -21,7 +22,7 @@ public class PersionerFragment extends BaseFragment {
 
     @Override
     protected int getLayoutResource() {
-        return 0;
+        return R.layout.empty_view;
     }
 
 }

@@ -6,14 +6,13 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:activityOpenEnterAnimation">@anim/activity_right_in</item>
+        <item name="android:activityOpenExitAnimation">@anim/activity_left_out</item>
+        <item name="android:activityCloseEnterAnimation">@anim/activity_left_in</item>
+        <item name="android:activityCloseExitAnimation">@anim/activity_right_out</item>
     </style>
 
-    <!--直线-->
-    <style name="line">
-        <item name="android:layout_height">0.5dp</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:background">@color/color_line</item>
-    </style>
 
     <!--APP去除顶部 状态栏-->
     <style name="Theme.NoSystemStatusBar" parent="AppTheme">
@@ -24,7 +23,7 @@
     </style>
 
     <!--APP启动时没有白屏-->
-    <style name="Theme.AppStartLoadTranslucent" parent="AppTheme">
+    <style name="Theme.AppStartLoadTranslucent" parent="Theme.AppCompat.Light.NoActionBar">
         <!--状态栏和toolbar分开-->
         <!--<item name="android:windowIsTranslucent">true</item>-->
         <!-- 状态栏和toolbar连在一起-->
@@ -34,5 +33,14 @@
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowNoTitle">true</item>
     </style>
+
+    <!--直线-->
+    <style name="line">
+        <item name="android:layout_height">0.5dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@color/color_line</item>
+    </style>
+
+
 
 </resources>

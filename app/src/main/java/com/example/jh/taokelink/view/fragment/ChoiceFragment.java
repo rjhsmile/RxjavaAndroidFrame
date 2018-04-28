@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.example.jh.taokelink.BaseFragment;
+import com.example.jh.taokelink.R;
 
 /**
  * @author：rjhsmile
@@ -20,7 +21,7 @@ public class ChoiceFragment extends BaseFragment{
 
     @Override
     protected int getLayoutResource() {
-        return 0;
+        return R.layout.empty_view;
     }
 
 }

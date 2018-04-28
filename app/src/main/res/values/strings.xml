@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TaoKeLink</string>
+    <string name="app_name">框架搭建</string>
     <!-- error -->
     <string name="error_please_check_network">请检查网络</string>
     <string name="error_timeout">请求超时，网络不好</string>

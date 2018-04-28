@@ -1,15 +1,7 @@
 package com.example.jh.taokelink.view.fragment;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-
 import com.example.jh.taokelink.BaseFragment;
-import com.example.jh.taokelink.utils.ApiContents;
-import com.example.jh.taokelink.utils.nohttps.HttpListener;
-import com.yanzhenjie.nohttp.NoHttp;
-import com.yanzhenjie.nohttp.RequestMethod;
-import com.yanzhenjie.nohttp.rest.Request;
-import com.yanzhenjie.nohttp.rest.Response;
+import com.example.jh.taokelink.R;
 
 /**
  * @author：rjhsmile
@@ -26,6 +18,6 @@ public class MainFragment extends BaseFragment {
 
     @Override
     protected int getLayoutResource() {
-        return 0;
+        return R.layout.empty_view;
     }
 }
