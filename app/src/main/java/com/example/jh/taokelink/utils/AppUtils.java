@@ -11,16 +11,14 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.WindowManager;
-
-import com.example.jh.taokelink.R;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.List;
-import java.util.Stack;
 
 
 /**
@@ -38,9 +36,9 @@ public class AppUtils {
      * @param context
      * @return
      */
-    public static String drawbleToPath(Context context) {
+    public static String drawbleToPath(Context context, int id) {
         Resources res = context.getResources();
-        BitmapDrawable d = (BitmapDrawable) res.getDrawable(R.mipmap.ic_launcher);
+        BitmapDrawable d = (BitmapDrawable) res.getDrawable(id);
         Bitmap img = d.getBitmap();
 
         String fn = "ic_launcher.png";
@@ -216,26 +214,61 @@ public class AppUtils {
      */
 
     public static boolean checkPackage(Context context, String packageName) {
-        if (packageName == null || "".equals(packageName)) {
-            return false;
+        PackageManager packageManager = context.getPackageManager();
+
+        List<PackageInfo> pinfo = packageManager.getInstalledPackages(0);
+        for (int i = 0; i < pinfo.size(); i++) {
+            if (((PackageInfo) pinfo.get(i)).packageName
+                    .equalsIgnoreCase(packageName))
+                return true;
         }
-        try {
-            context.getPackageManager().getApplicationInfo(packageName, 0);
-            return true;
-        } catch (PackageManager.NameNotFoundException e) {
-            return false;
-        }
+        return false;
     }
 
+    /**
+     * 获取设备宽度
+     *
+     * @param activity
+     * @return
+     */
     public static int getDeviceWidth(Activity activity) {
         WindowManager wm = (WindowManager) activity.getSystemService(Context.WINDOW_SERVICE);
         int width = wm.getDefaultDisplay().getWidth();
         return width;
     }
+
+    /**
+     * 获取设备高度
+     *
+     * @param activity
+     * @return
+     */
     public static int getDeviceHeigh(Activity activity) {
         WindowManager wm = (WindowManager) activity.getSystemService(Context.WINDOW_SERVICE);
         int heigh = wm.getDefaultDisplay().getHeight();
         return heigh;
     }
 
+    /**
+     * 获取屏幕宽度
+     *
+     * @param context
+     * @return
+     */
+    public static int getScreenWidth(Context context) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        return displayMetrics.widthPixels;
+    }
+
+    /**
+     * dp转换成px
+     *
+     * @param context
+     * @param dipValue
+     * @return
+     */
+    public static int dp2px(Context context, float dipValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dipValue * scale + 0.5f);
+    }
 }

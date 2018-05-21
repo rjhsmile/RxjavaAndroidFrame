@@ -41,6 +41,24 @@
         <item name="android:background">@color/color_line</item>
     </style>
 
+    <!--竖线-->
+    <style name="line_vertical">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">@dimen/x1</item>
+        <item name="android:background">@color/color_line</item>
+    </style>
 
-
+    <!--弹窗样式-->
+    <style name="NiceDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowSoftInputMode">adjustPan</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
+    <!--弹窗动画-->
+    <style name="DefaultAnimation" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/enter_anim</item>
+        <item name="android:windowExitAnimation">@anim/exit_anim</item>
+    </style>
 </resources>

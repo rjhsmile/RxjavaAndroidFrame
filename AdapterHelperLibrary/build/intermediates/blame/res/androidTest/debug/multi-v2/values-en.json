@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\ASWorkSpace\\FrameDemo\\AdapterHelperLibrary\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-en\\values-en.xml",
+            "outputFile": "D:\\StudioWorkSpace\\FrameDemo\\AdapterHelperLibrary\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-en\\values-en.xml",
             "map": [
                 {
-                    "source": "D:\\ASWorkSpace\\FrameDemo\\AdapterHelperLibrary\\build\\intermediates\\bundles\\debug\\res\\values-en\\values-en.xml",
+                    "source": "D:\\StudioWorkSpace\\FrameDemo\\AdapterHelperLibrary\\build\\intermediates\\bundles\\debug\\res\\values-en\\values-en.xml",
                     "from": {
                         "startLines": "2,3,4",
                         "startColumns": "4,4,4",
