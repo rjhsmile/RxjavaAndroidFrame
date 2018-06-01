@@ -42,7 +42,8 @@ public class GuideActivity extends BaseActivity implements ViewPager.OnPageChang
 
     @Override
     protected void initView() {
-        //1.读取状态信息？
+        startGuideActivity();
+        /*//1.读取状态信息？
         SPUtils spUtils = new SPUtils(this, "shared_preferences");
         boolean isUsed = spUtils.getBoolean("isUsed", false);
         //2.根据使用状态，启动下个页面
@@ -54,7 +55,7 @@ public class GuideActivity extends BaseActivity implements ViewPager.OnPageChang
             //引导页
             startGuideActivity();
             spUtils.putBoolean("isUsed", true);
-        }
+        }*/
     }
 
     /**

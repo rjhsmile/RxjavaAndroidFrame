@@ -12,7 +12,7 @@ import com.yanzhenjie.nohttp.cookie.DBCookieStore;
  * Created by jh on 2018/3/1.
  */
 
-public class MyTaoApplication extends Application {
+public class MyApplication extends Application {
 
     public static Application mContext;
 

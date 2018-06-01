@@ -1,18 +1,23 @@
 package com.example.jh.taokelink.view.activity;
 
+import android.content.Intent;
 import android.os.Build;
+import android.os.Handler;
 import android.view.Gravity;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
+
 import com.example.jh.taokelink.BaseActivity;
 import com.example.jh.taokelink.R;
 import com.example.jh.taokelink.utils.CostomFragmentTabHost;
+import com.example.jh.taokelink.utils.UiUtils;
 import com.example.jh.taokelink.view.fragment.ChoiceFragment;
 import com.example.jh.taokelink.view.fragment.FenleiFragment;
 import com.example.jh.taokelink.view.fragment.MainFragment;
 import com.example.jh.taokelink.view.fragment.PersionerFragment;
+
 import butterknife.BindView;
 
 public class MainActivity extends BaseActivity {
@@ -69,4 +74,28 @@ public class MainActivity extends BaseActivity {
         tabs.addTab(tab, fragmentClass, null);
     }
 
+
+    /**
+     * 点击回退操作时提示
+     */
+    private boolean isExist;
+
+    @Override
+    public void onBackPressed() {
+        if (!isExist) {
+            UiUtils.showToast(this, "再按一次退出程序");
+            isExist = true;
+            Handler h = new Handler();
+            h.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    isExist = false;
+                }
+            }, 3000);
+        } else {
+            Intent MyIntent = new Intent(Intent.ACTION_MAIN);
+            MyIntent.addCategory(Intent.CATEGORY_HOME);
+            startActivity(MyIntent);
+        }
+    }
 }
