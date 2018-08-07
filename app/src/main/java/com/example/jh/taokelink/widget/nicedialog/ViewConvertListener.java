@@ -1,4 +1,4 @@
-package com.example.jh.taokelink.utils.dialog;
+package com.example.jh.taokelink.widget.nicedialog;
 
 import android.os.Parcel;
 import android.os.Parcelable;

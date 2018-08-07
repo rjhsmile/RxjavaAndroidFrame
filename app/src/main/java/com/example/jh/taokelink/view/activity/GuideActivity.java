@@ -15,8 +15,7 @@ import android.widget.Toast;
 import com.example.jh.taokelink.Adapter.InnerAdapter;
 import com.example.jh.taokelink.BaseActivity;
 import com.example.jh.taokelink.R;
-import com.example.jh.taokelink.utils.SPUtils;
-import com.example.jh.taokelink.utils.SplashView;
+import com.example.jh.taokelink.widget.SplashView;
 import butterknife.BindView;
 import butterknife.OnClick;
 

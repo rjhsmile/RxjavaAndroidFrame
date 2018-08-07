@@ -1,4 +1,4 @@
-package com.example.jh.taokelink.utils.dialog;
+package com.example.jh.taokelink.widget.nicedialog;
 
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;

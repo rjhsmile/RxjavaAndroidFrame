@@ -12,15 +12,21 @@ import com.yanzhenjie.nohttp.cookie.DBCookieStore;
  * Created by jh on 2018/3/1.
  */
 
-public class MyApplication extends Application {
+public class App extends Application {
 
-    public static Application mContext;
+    private static App mApp;
 
     @Override
     public void onCreate() {
-        mContext = this;
         initNohttp();
         super.onCreate();
+    }
+
+    public synchronized static App getInstance() {
+        if (mApp == null) {
+            mApp = new App();
+        }
+        return mApp;
     }
 
     /**
