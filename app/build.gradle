@@ -44,4 +44,12 @@ dependencies {
     compile 'com.yanzhenjie.nohttp:nohttp:1.1.1'
     compile 'com.alibaba:fastjson:1.2.9'
     implementation project(':AdapterHelperLibrary')
+    //Rxjava和Rxandroid网络框架
+    compile 'io.reactivex.rxjava2:rxjava:2.0.1'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    // Android 支持 Retrofit
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    //衔接 Retrofit & RxJava
+    //此处一定要注意使用RxJava2的版本
+    compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
 }
