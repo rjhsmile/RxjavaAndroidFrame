@@ -22,7 +22,6 @@ import com.example.jh.taokelink.R;
 public class UiUtils {
 
     /**
-     * 饶建辉
      * 功能;防止多次点击提示
      */
     private static Toast toast;
