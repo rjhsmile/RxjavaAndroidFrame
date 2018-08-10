@@ -1,12 +1,11 @@
 package com.example.jh.taokelink.http.exception;
 
 /**
- * Created by gaosheng on 2016/11/6.
- * 22:23
- * com.example.gaosheng.myapplication.exception
- * 自定义的服务器异常
+ * 服务器错误
+ *
+ * @author gc
+ * @since 1.0
  */
-
 public class ServerException extends RuntimeException {
     public int code;
     public String message;

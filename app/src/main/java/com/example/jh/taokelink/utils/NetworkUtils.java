@@ -13,7 +13,7 @@ import java.net.SocketException;
 import java.net.URL;
 import java.util.Enumeration;
 
-public class NetworkUtil {
+public class NetworkUtils {
 
     public static int NET_CNNT_BAIDU_OK = 1; // NetworkAvailable
     public static int NET_CNNT_BAIDU_TIMEOUT = 2; // no NetworkAvailable
@@ -29,8 +29,8 @@ public class NetworkUtil {
      * @return
      */
     public static boolean isNetworkAvailable(Context context) {
-        ConnectivityManager manager = (ConnectivityManager) context.getApplicationContext().getSystemService(
-                Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager manager = (ConnectivityManager) context.getApplicationContext().
+                getSystemService(Context.CONNECTIVITY_SERVICE);
         if (null == manager)
             return false;
         NetworkInfo info = manager.getActiveNetworkInfo();

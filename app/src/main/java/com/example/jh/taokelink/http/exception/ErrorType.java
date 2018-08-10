@@ -1,22 +1,24 @@
 package com.example.jh.taokelink.http.exception;
 
 /**
- * Created by gaosheng on 2016/11/6.
- * 21:50
- * com.example.gaosheng.myapplication.exception
+ * 错误类型
+ *
+ * @author gc
+ * @since 1.0
  */
-
 public interface ErrorType {
-
     /**
      * 请求成功
      */
-    int SUCCESS = 1;
+    int SUCCESS = 200;
+    /**
+     * 没有登录无权限
+     */
+    int UNAUTHORIZED = 401;
     /**
      * 未知错误
      */
     int UNKONW = 1000;
-
     /**
      * 解析错误
      */
@@ -25,15 +27,16 @@ public interface ErrorType {
      * 网络错误
      */
     int NETWORK_ERROR = 1002;
-
+    /**
+     * HTTP请求错误
+     */
+    int HTTP_ERROR = 1003;
     /**
      * 解析对象为空
      */
     int EMPTY_BEAN = 1004;
-
-
     /**
-     *
+     * 其他客户端登陆
      */
-    int HTTP_ERROR = 1003;
+    int OTHER_LOGIN=410;
 }
