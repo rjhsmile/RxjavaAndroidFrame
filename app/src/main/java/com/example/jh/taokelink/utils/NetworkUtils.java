@@ -5,6 +5,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.telephony.TelephonyManager;
 
+import com.example.jh.taokelink.App;
+
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.InetAddress;
@@ -25,12 +27,11 @@ public class NetworkUtils {
     /**
      * check NetworkAvailable
      *
-     * @param context
      * @return
      */
-    public static boolean isNetworkAvailable(Context context) {
-        ConnectivityManager manager = (ConnectivityManager) context.getApplicationContext().
-                getSystemService(Context.CONNECTIVITY_SERVICE);
+    public static boolean isNetworkAvailable() {
+        ConnectivityManager manager = (ConnectivityManager) App.getInstance().getApplicationContext()
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
         if (null == manager)
             return false;
         NetworkInfo info = manager.getActiveNetworkInfo();

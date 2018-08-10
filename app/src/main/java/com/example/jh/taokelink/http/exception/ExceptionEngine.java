@@ -52,7 +52,7 @@ public class ExceptionEngine {
                     ex.message = App.getInstance().getString(R.string.service_connect_failed);
                     break;
                 case REQUEST_TIMEOUT:
-                    ex.message = App.getInstance().getString(R.string.server_exception);
+                    ex.message = App.getInstance().getString(R.string.connect_timeout);
 //                    ex.message = "请求超时";
                     break;
                 case GATEWAY_TIMEOUT:

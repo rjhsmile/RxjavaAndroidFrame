@@ -22,7 +22,6 @@ public abstract class ResponseObserver<T> implements OnFinishListener, Observer<
     private Context mContext;
     private boolean mAutoDismiss = false;
     private boolean showErrorMsg = true;
-    private String isDelayed;//是否延时加载
 
     public ResponseObserver(Context context) {
         mContext = context;
@@ -67,8 +66,10 @@ public abstract class ResponseObserver<T> implements OnFinishListener, Observer<
 
     @Override
     public void onError(Throwable e) {
-
-        if (NetworkUtils.isNetworkAvailable(App.getInstance())) {   //有网络
+        if (e instanceof HttpException) {
+            int code = ((HttpException) e).code();
+        }
+        if (NetworkUtils.isNetworkAvailable()) {   //有网络
             ApiException exception = ExceptionEngine.handleException(e);
             switch (exception.code) {
                 case 401:

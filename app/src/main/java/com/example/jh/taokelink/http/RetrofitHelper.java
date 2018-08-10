@@ -22,25 +22,13 @@ public class RetrofitHelper {
         return createApi(clazz, Constants.BASE_URL);
     }
 
-    public static <T> T createApi(Class<T> clazz, String url) {
-        initOkHttp();
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(url)
-                .client(okHttpClient)
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        return retrofit.create(clazz);
-    }
+    public static <T> T createApi(Class<T> clazz, String baseUrl) {
 
-    private static void initOkHttp() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.addInterceptor(new ReceivedCookiesInterceptor());
         builder.addInterceptor(new AddCookiesInterceptor());
         if (BuildConfig.DEBUG) {
-            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-            builder.addInterceptor(loggingInterceptor);
+            builder.addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY));
         }
         // builder.addInterceptor(new LoggerInterceptor());
         //设置超时
@@ -50,5 +38,15 @@ public class RetrofitHelper {
         //错误重连
         //   builder.retryOnConnectionFailure(true);
         okHttpClient = builder.build();
+
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .client(okHttpClient)
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        return retrofit.create(clazz);
     }
 }
