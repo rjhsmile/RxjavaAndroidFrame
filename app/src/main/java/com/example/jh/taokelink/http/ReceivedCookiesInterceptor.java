@@ -37,7 +37,6 @@ public class ReceivedCookiesInterceptor implements Interceptor {
                     config.commit();
                 }
             }
-
         }
 
         return originalResponse;

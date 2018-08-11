@@ -118,13 +118,13 @@ public abstract class ResponseObserver<T extends BaseRespond> implements Observe
     public void onException(ExceptionReason reason) {
         switch (reason) {
             case CONNECT_ERROR:
-                ToastUtils.show(R.string.connect_error, Toast.LENGTH_SHORT);
+                ToastUtils.show(R.string.connect_timeout, Toast.LENGTH_SHORT);
                 break;
             case CONNECT_TIMEOUT:
                 ToastUtils.show(R.string.connect_timeout, Toast.LENGTH_SHORT);
                 break;
             case BAD_NETWORK:
-                ToastUtils.show(R.string.bad_network);
+                ToastUtils.show(R.string.connect_timeout);
                 break;
             case PARSE_ERROR:
                 ToastUtils.show(R.string.parse_error, Toast.LENGTH_SHORT);

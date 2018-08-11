@@ -4,11 +4,23 @@
         "source": "D:\\StudioWorkSpace\\FrameDemo\\AdapterHelperLibrary\\build\\intermediates\\bundles\\debug\\res\\drawable\\brvah_sample_footer_loading.png"
     },
     {
+        "merged": "D:\\ASWorkSpace\\FrameDemo\\AdapterHelperLibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable_brvah_sample_footer_loading_progress.xml.flat",
+        "source": "D:\\ASWorkSpace\\FrameDemo\\AdapterHelperLibrary\\build\\intermediates\\bundles\\debug\\res\\drawable\\brvah_sample_footer_loading_progress.xml"
+    },
+    {
         "merged": "D:\\StudioWorkSpace\\FrameDemo\\AdapterHelperLibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout_brvah_quick_view_load_more.xml.flat",
         "source": "D:\\StudioWorkSpace\\FrameDemo\\AdapterHelperLibrary\\build\\intermediates\\bundles\\debug\\res\\layout\\brvah_quick_view_load_more.xml"
     },
     {
         "merged": "D:\\StudioWorkSpace\\FrameDemo\\AdapterHelperLibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable_brvah_sample_footer_loading_progress.xml.flat",
         "source": "D:\\StudioWorkSpace\\FrameDemo\\AdapterHelperLibrary\\build\\intermediates\\bundles\\debug\\res\\drawable\\brvah_sample_footer_loading_progress.xml"
+    },
+    {
+        "merged": "D:\\ASWorkSpace\\FrameDemo\\AdapterHelperLibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable_brvah_sample_footer_loading.png.flat",
+        "source": "D:\\ASWorkSpace\\FrameDemo\\AdapterHelperLibrary\\build\\intermediates\\bundles\\debug\\res\\drawable\\brvah_sample_footer_loading.png"
+    },
+    {
+        "merged": "D:\\ASWorkSpace\\FrameDemo\\AdapterHelperLibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout_brvah_quick_view_load_more.xml.flat",
+        "source": "D:\\ASWorkSpace\\FrameDemo\\AdapterHelperLibrary\\build\\intermediates\\bundles\\debug\\res\\layout\\brvah_quick_view_load_more.xml"
     }
 ]
