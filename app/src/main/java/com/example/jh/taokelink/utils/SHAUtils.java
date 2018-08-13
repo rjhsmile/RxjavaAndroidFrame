@@ -12,10 +12,10 @@ import java.util.Map;
  * Created by suxi on 2017/5/22.
  */
 
-public class SHA1 {
+public class SHAUtils {
 
     /**
-     * SHA1 安全加密算法
+     * SHAUtils 安全加密算法
      *
      * @param maps 参数key-value map集合
      * @return

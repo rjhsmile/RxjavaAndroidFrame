@@ -13,7 +13,7 @@ import retrofit2.http.POST;
  * 描述：api
  */
 
-public interface AppApi {
+public interface ApiService {
     /**
      * 商家入驻
      *

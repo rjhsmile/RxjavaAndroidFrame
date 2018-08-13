@@ -16,12 +16,12 @@ import io.reactivex.Observable;
  * 描述：
  */
 
-public class OkhttpSource implements AppApi {
+public class OkhttpSource implements ApiService {
 
     private static volatile OkhttpSource instance = null;
 
-    private AppApi getApi() {
-        return RetrofitHelper.getInstance().createApi(AppApi.class);
+    private ApiService getApi() {
+        return RetrofitHelper.getInstance().createApi(ApiService.class);
     }
 
     public static OkhttpSource getInstance() {

@@ -1,27 +1,12 @@
 package com.example.jh.taokelink.http;
 
-import android.renderscript.Sampler;
-import android.text.TextUtils;
-
 import com.example.jh.taokelink.App;
-import com.example.jh.taokelink.Constants;
 import com.example.jh.taokelink.utils.AppUtils;
 import com.example.jh.taokelink.utils.Keys;
 import com.example.jh.taokelink.utils.Md5Util;
-import com.example.jh.taokelink.utils.SPUtils;
-import com.yanzhenjie.nohttp.tools.MultiValueMap;
-
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 import java.util.TreeMap;
-
-import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
