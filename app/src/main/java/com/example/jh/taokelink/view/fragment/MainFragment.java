@@ -3,6 +3,7 @@ package com.example.jh.taokelink.view.fragment;
 import com.example.jh.taokelink.BaseFragment;
 import com.example.jh.taokelink.R;
 import com.example.jh.taokelink.api.OkhttpSource;
+import com.example.jh.taokelink.entity.SystemBean;
 import com.example.jh.taokelink.http.BaseResponse;
 import com.example.jh.taokelink.http.ResponseObserver;
 
@@ -18,10 +19,10 @@ public class MainFragment extends BaseFragment {
     protected void initView() {
 
         OkhttpSource.getInstance().getSalesSellerEntryList()
-                .subscribe(new ResponseObserver<BaseResponse<String>>(getActivity(), true) {
+                .subscribe(new ResponseObserver<BaseResponse<SystemBean>>(getActivity(), true) {
 
                     @Override
-                    public void onSuccess(BaseResponse<String> response) {
+                    public void onSuccess(BaseResponse<SystemBean> response) {
                     }
                 });
 

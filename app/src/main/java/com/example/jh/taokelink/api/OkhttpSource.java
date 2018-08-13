@@ -1,8 +1,10 @@
 package com.example.jh.taokelink.api;
 
+import com.example.jh.taokelink.entity.SystemBean;
 import com.example.jh.taokelink.http.BaseResponse;
 import com.example.jh.taokelink.http.RetrofitHelper;
 import com.example.jh.taokelink.http.RxUtils;
+
 import io.reactivex.Observable;
 
 
@@ -14,12 +16,12 @@ import io.reactivex.Observable;
  * 描述：
  */
 
-public class OkhttpSource implements Api {
+public class OkhttpSource implements AppApi {
 
     private static volatile OkhttpSource instance = null;
 
-    private Api getApi() {
-        return RetrofitHelper.getInstance().createApi(Api.class);
+    private AppApi getApi() {
+        return RetrofitHelper.getInstance().createApi(AppApi.class);
     }
 
     public static OkhttpSource getInstance() {
@@ -34,10 +36,9 @@ public class OkhttpSource implements Api {
     }
 
 
-
     @Override
-    public Observable<BaseResponse<String>> getSalesSellerEntryList() {
-        return getApi().getSalesSellerEntryList().compose(RxUtils.<BaseResponse<String>>rxSchedulerHelper());
+    public Observable<BaseResponse<SystemBean>> getSalesSellerEntryList() {
+        return getApi().getSalesSellerEntryList().compose(RxUtils.<BaseResponse<SystemBean>>rxSchedulerHelper());
     }
 
 }

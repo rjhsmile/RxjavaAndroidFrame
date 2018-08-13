@@ -1,18 +1,10 @@
 package com.example.jh.taokelink.http;
 
 import android.util.Log;
-
-import com.example.jh.taokelink.App;
-import com.example.jh.taokelink.BuildConfig;
 import com.example.jh.taokelink.Constants;
-import com.example.jh.taokelink.net.HttpCacheInterceptor;
-
-import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.concurrent.TimeUnit;
-
-import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -26,17 +18,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitHelper {
 
     private static int TIME = 10;
-    private static RetrofitHelper instance;
+    private static RetrofitHelper retrofitHelper;
 
     public static RetrofitHelper getInstance() {
-        if (null == instance) {
+        if (null == retrofitHelper) {
             synchronized (RetrofitHelper.class) {
-                if (null == instance) {
-                    instance = new RetrofitHelper();
+                if (null == retrofitHelper) {
+                    retrofitHelper = new RetrofitHelper();
                 }
             }
         }
-        return instance;
+        return retrofitHelper;
     }
 
     public static <T> T createApi(Class<T> clazz) {
@@ -66,9 +58,9 @@ public class RetrofitHelper {
                 .connectTimeout(TIME, TimeUnit.SECONDS)
                 .addInterceptor(interceptor)
                 //错误重连
-                //.retryOnConnectionFailure(true)
+                .retryOnConnectionFailure(true)
                 .addInterceptor(new AddCookiesInterceptor())
-                .addNetworkInterceptor(new HttpCacheInterceptor())
+                //.addNetworkInterceptor(new HttpCacheInterceptor())
                 //.cache(cache)
                 .build();
 

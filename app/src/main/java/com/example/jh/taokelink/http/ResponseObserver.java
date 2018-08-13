@@ -2,12 +2,14 @@ package com.example.jh.taokelink.http;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.jh.taokelink.R;
 import com.example.jh.taokelink.http.exception.ExceptionEngine;
 import com.example.jh.taokelink.widget.nicedialog.BaseNiceDialog;
 import com.example.jh.taokelink.widget.nicedialog.NiceDialog;
+
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
@@ -22,6 +24,7 @@ public abstract class ResponseObserver<T> implements Observer<T> {
     private boolean mAutoDismiss = false;
     private boolean showErrorMsg = true;
     private BaseNiceDialog progressBar;
+    private Disposable mDisposable;//接口取消
 
     /**
      * 成功抽象类
@@ -103,9 +106,14 @@ public abstract class ResponseObserver<T> implements Observer<T> {
         ExceptionEngine.handleException(e);
     }
 
+    /**
+     * 是否取消订阅
+     *
+     * @param d
+     */
     @Override
     public void onSubscribe(Disposable d) {
-
+        mDisposable = d;
     }
 
     /**
@@ -119,6 +127,7 @@ public abstract class ResponseObserver<T> implements Observer<T> {
                 .setWidth(100)
                 .setHeight(100)
                 .setDimAmount(0.1f)
+                .setOutCancel(true)
                 .show(mActivity.getSupportFragmentManager());
     }
 
