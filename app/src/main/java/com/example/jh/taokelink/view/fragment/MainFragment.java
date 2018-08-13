@@ -18,13 +18,13 @@ public class MainFragment extends BaseFragment {
     @Override
     protected void initView() {
 
-        OkhttpSource.getInstance().getSalesSellerEntryList("3", "63", "13521653231", "2222")
+        OkhttpSource.getInstance().getSalesSellerEntryList()
                 .subscribe(new ResponseObserver<BaseResponse<RiderBean>>(getActivity(), true) {
-
                     @Override
                     public void onSuccess(BaseResponse<RiderBean> riderBeanBaseResponse) {
 
                     }
+
                 });
 
     }

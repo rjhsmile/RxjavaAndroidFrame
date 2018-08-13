@@ -20,12 +20,7 @@ public interface ApiService {
      *
      * @return
      */
-    @POST("openService/deliveryRecruit")
-    Observable<BaseResponse<RiderBean>> getSalesSellerEntryList(
-            @Query("clientType") String clientType,
-            @Query("globalCode") String globalCode,
-            @Query("mobile") String mobile,
-            @Query("mCode") String mCode
-    );
+    @POST("/api/system")
+    Observable<BaseResponse<RiderBean>> getSalesSellerEntryList();
 
 }

@@ -23,9 +23,9 @@ public class AddCookiesInterceptor implements Interceptor {
         builder.addHeader("appkey", Keys.appkey);
         builder.addHeader("os", "android");
         builder.addHeader("t", System.currentTimeMillis() + "");//时间戳
-        builder.addHeader("v", AppUtils.getVersionName(App.getInstance()));//app版本号
+        //builder.addHeader("v", AppUtils.getVersionName(App.getInstance()));//app版本号
         //签名
-        builder.addHeader("sign", singnParam(chain));//md5签名串
+        //builder.addHeader("sign", singnParam(chain));//md5签名串
         return chain.proceed(builder.build());
     }
 

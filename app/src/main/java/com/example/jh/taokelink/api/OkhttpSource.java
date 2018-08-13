@@ -37,9 +37,7 @@ public class OkhttpSource implements ApiService {
 
 
     @Override
-    public Observable<BaseResponse<RiderBean>> getSalesSellerEntryList(String clientType, String globalCode, String mobile, String mCode) {
-        return getApi()
-                .getSalesSellerEntryList(clientType, globalCode, mobile, mCode)
-                .compose(RxUtils.<BaseResponse<RiderBean>>rxSchedulerHelper());
+    public Observable<BaseResponse<RiderBean>> getSalesSellerEntryList() {
+        return getApi().getSalesSellerEntryList().compose(RxUtils.<BaseResponse<RiderBean>>rxSchedulerHelper());
     }
 }
