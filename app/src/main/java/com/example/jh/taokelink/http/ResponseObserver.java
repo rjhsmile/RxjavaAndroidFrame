@@ -2,28 +2,33 @@ package com.example.jh.taokelink.http;
 
 
 import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
 
-import com.example.jh.taokelink.App;
 import com.example.jh.taokelink.R;
-import com.example.jh.taokelink.http.exception.ApiException;
-import com.example.jh.taokelink.http.exception.ErrorType;
 import com.example.jh.taokelink.http.exception.ExceptionEngine;
-import com.example.jh.taokelink.utils.NetworkUtils;
-import com.example.jh.taokelink.utils.ToastUtils;
-
+import com.example.jh.taokelink.widget.nicedialog.BaseNiceDialog;
+import com.example.jh.taokelink.widget.nicedialog.NiceDialog;
 import io.reactivex.Observer;
-import retrofit2.HttpException;
+import io.reactivex.disposables.Disposable;
 
 /**
  * 数据返回
  *
  * @param <T>
  */
-public abstract class ResponseObserver<T> implements OnFinishListener, Observer<T> {
+public abstract class ResponseObserver<T> implements Observer<T> {
     private static final String TAG = "ResponseObserver";
     private Context mContext;
     private boolean mAutoDismiss = false;
     private boolean showErrorMsg = true;
+    private BaseNiceDialog progressBar;
+
+    /**
+     * 成功抽象类
+     *
+     * @param t
+     */
+    public abstract void onSuccess(T t);
 
     public ResponseObserver(Context context) {
         mContext = context;
@@ -34,7 +39,7 @@ public abstract class ResponseObserver<T> implements OnFinishListener, Observer<
         mContext = context;
         this.mAutoDismiss = autoDismiss;
         if (autoDismiss) {
-
+            showProgressBar();
         }
     }
 
@@ -43,26 +48,78 @@ public abstract class ResponseObserver<T> implements OnFinishListener, Observer<
         this.mAutoDismiss = autoDismiss;
         this.showErrorMsg = showErrorMsg;
         if (autoDismiss) {
-
+            showProgressBar();
         }
     }
 
 
     /**
-     * 请求回调结束操作
+     * 成功方法回调
+     *
+     * @param t
      */
     @Override
-    public void onFinish() {
+    public void onNext(final T t) {
+        //失败方法
+        if (t instanceof BaseResponse || t instanceof BaseArrayResponse) {
+            BaseResponse response = (BaseResponse) t;
+            if (response.code != 1) {   //请求失败
+                if (showErrorMsg)
+                    //onFail(response.code, response.message);
+                    onComplete();
+                return;
+            }
+        }
+
+        //成功方法
+        try {
+            onSuccess(t);
+            onComplete();
+        } catch (Exception e) {
+            e.printStackTrace();
+            onError(e);
+        }
+    }
+
+    /**
+     * 完成回调
+     */
+    @Override
+    public void onComplete() {
         if (mAutoDismiss) {
             dismiss();
         }
     }
 
+    /**
+     * 失败回调
+     *
+     * @param e
+     */
     @Override
-    public void onFail(int code, String msg) {
-        if (mAutoDismiss) {
-            dismiss();
-        }
+    public void onError(Throwable e) {
+        onComplete();
+        e.printStackTrace();
+        ExceptionEngine.handleException(e);
+    }
+
+    @Override
+    public void onSubscribe(Disposable d) {
+
+    }
+
+    /**
+     * 加载框
+     */
+    public void showProgressBar() {
+        AppCompatActivity mActivity = (AppCompatActivity) mContext;
+        //初始化加载框
+        progressBar = NiceDialog.init()
+                .setLayoutId(R.layout.dialog_progress)
+                .setWidth(100)
+                .setHeight(100)
+                .setDimAmount(0.1f)
+                .show(mActivity.getSupportFragmentManager());
     }
 
 
@@ -70,70 +127,8 @@ public abstract class ResponseObserver<T> implements OnFinishListener, Observer<
      * 加载框消失
      */
     public void dismiss() {
-
-    }
-
-    @Override
-    public void onError(Throwable e) {
-
-        if (NetworkUtils.isNetworkAvailable()) {   //有网络
-            ApiException exception = ExceptionEngine.handleException(e);
-            switch (exception.code) {
-                case ErrorType.UNKONW:
-                    onFail(exception.code, exception.message);
-                    ToastUtils.show(exception.message);
-                    break;
-                case ErrorType.NETWORK_ERROR:
-                    onFail(exception.code, exception.message);
-                    ToastUtils.show(exception.message);
-                    break;
-            }
-        } else {
-            ToastUtils.show(mContext.getResources().getString(R.string.connect_timeout));
-            onFail(ErrorType.HTTP_ERROR, mContext.getResources().getString(R.string.connect_timeout));
+        if (null != progressBar) {
+            progressBar.dismiss();
         }
-        e.printStackTrace();
-        onFailure(ExceptionEngine.handleException(e));
-        onFinish();
-        if (mAutoDismiss) {
-            dismiss();
-        }
-    }
-
-
-    @Override
-    public void onNext(final T t) {
-        if (t instanceof BaseResponse) {
-            BaseResponse response = (BaseResponse) t;
-            if (response.code != 1) {   //请求失败
-                if (showErrorMsg)
-                    onFail(response.code, response.message);
-                return;
-            }
-        } else if (t instanceof BaseArrayResponse) {
-            BaseArrayResponse response = (BaseArrayResponse) t;
-            if (response.code != 1) {   //请求失败
-                if (showErrorMsg)
-                    //ToastUtil.showToast(mContext, response.message);
-                    onFail(response.code, response.message);
-                return;
-            }
-        }
-        try {
-            onSuccess(t);
-            onFinish();
-            if (mAutoDismiss) {
-                dismiss();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            onError(e);
-        }
-
-    }
-
-    public abstract void onSuccess(T t);
-
-    public void onFailure(Throwable e) {
     }
 }

@@ -25,7 +25,19 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitHelper {
 
-    private static final int TIME = 10;
+    private static int TIME = 10;
+    private static RetrofitHelper instance;
+
+    public static RetrofitHelper getInstance() {
+        if (null == instance) {
+            synchronized (RetrofitHelper.class) {
+                if (null == instance) {
+                    instance = new RetrofitHelper();
+                }
+            }
+        }
+        return instance;
+    }
 
     public static <T> T createApi(Class<T> clazz) {
         return createApi(clazz, Constants.BASE_URL);
@@ -46,18 +58,18 @@ public class RetrofitHelper {
         });
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-        File cacheFile = new File(App.getInstance().getCacheDir(), "cache");
-        Cache cache = new Cache(cacheFile, 1024 * 1024 * 100); //100Mb
+       // File cacheFile = new File(App.getInstance().getCacheDir(), "cache");
+        //Cache cache = new Cache(cacheFile, 1024 * 1024 * 100); //100Mb
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .writeTimeout(TIME,TimeUnit.SECONDS)
+                .writeTimeout(TIME, TimeUnit.SECONDS)
                 .readTimeout(TIME, TimeUnit.SECONDS)
                 .connectTimeout(TIME, TimeUnit.SECONDS)
                 .addInterceptor(interceptor)
                 //错误重连
                 //.retryOnConnectionFailure(true)
-                .addInterceptor(new ReceivedCookiesInterceptor())
+                .addInterceptor(new AddCookiesInterceptor())
                 .addNetworkInterceptor(new HttpCacheInterceptor())
-                .cache(cache)
+                //.cache(cache)
                 .build();
 
 

@@ -8,6 +8,11 @@ package com.example.jh.taokelink.utils;
  */
 
 public class Keys {
+
+    //系统appkey
+    public static final String appkey = "1000001";
+    //系统appsecret
+    public static final String appsecret = "FzT5McdgaGG1C1JByc4wad2Uz5QTaI8H";
     //下一个界面key
-public static final String  next_activity="NextActivity";
+    public static final String next_activity = "NextActivity";
 }
