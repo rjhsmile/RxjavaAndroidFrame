@@ -2,7 +2,6 @@ package com.example.jh.taokelink.http;
 
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.jh.taokelink.R;
@@ -10,8 +9,9 @@ import com.example.jh.taokelink.http.exception.ExceptionEngine;
 import com.example.jh.taokelink.widget.nicedialog.BaseNiceDialog;
 import com.example.jh.taokelink.widget.nicedialog.NiceDialog;
 
-import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+import rx.Observer;
+
 
 /**
  * 数据返回
@@ -69,7 +69,7 @@ public abstract class ResponseObserver<T> implements Observer<T> {
             if (response.code != 1) {   //请求失败
                 if (showErrorMsg)
                     //onFail(response.code, response.message);
-                    onComplete();
+                    onCompleted();
                 return;
             }
         }
@@ -77,7 +77,7 @@ public abstract class ResponseObserver<T> implements Observer<T> {
         //成功方法
         try {
             onSuccess(t);
-            onComplete();
+            onCompleted();
         } catch (Exception e) {
             e.printStackTrace();
             onError(e);
@@ -88,7 +88,7 @@ public abstract class ResponseObserver<T> implements Observer<T> {
      * 完成回调
      */
     @Override
-    public void onComplete() {
+    public void onCompleted() {
         if (mAutoDismiss) {
             dismiss();
         }
@@ -101,19 +101,9 @@ public abstract class ResponseObserver<T> implements Observer<T> {
      */
     @Override
     public void onError(Throwable e) {
-        onComplete();
+        onCompleted();
         e.printStackTrace();
         ExceptionEngine.handleException(e);
-    }
-
-    /**
-     * 是否取消订阅
-     *
-     * @param d
-     */
-    @Override
-    public void onSubscribe(Disposable d) {
-        mDisposable = d;
     }
 
     /**

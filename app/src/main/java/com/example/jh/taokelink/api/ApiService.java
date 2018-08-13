@@ -1,9 +1,10 @@
 package com.example.jh.taokelink.api;
 
-import com.example.jh.taokelink.entity.SystemBean;
+import com.example.jh.taokelink.entity.RiderBean;
 import com.example.jh.taokelink.http.BaseResponse;
-import io.reactivex.Observable;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
+import rx.Observable;
 
 /**
  * 作者： Created by${raojianhui}
@@ -19,7 +20,12 @@ public interface ApiService {
      *
      * @return
      */
-    @POST("/api/system")
-    Observable<BaseResponse<SystemBean>> getSalesSellerEntryList();
+    @POST("openService/deliveryRecruit")
+    Observable<BaseResponse<RiderBean>> getSalesSellerEntryList(
+            @Query("clientType") String clientType,
+            @Query("globalCode") String globalCode,
+            @Query("mobile") String mobile,
+            @Query("mCode") String mCode
+    );
 
 }

@@ -1,11 +1,11 @@
 package com.example.jh.taokelink.api;
 
-import com.example.jh.taokelink.entity.SystemBean;
+import com.example.jh.taokelink.entity.RiderBean;
 import com.example.jh.taokelink.http.BaseResponse;
 import com.example.jh.taokelink.http.RetrofitHelper;
 import com.example.jh.taokelink.http.RxUtils;
 
-import io.reactivex.Observable;
+import rx.Observable;
 
 
 /**
@@ -37,8 +37,9 @@ public class OkhttpSource implements ApiService {
 
 
     @Override
-    public Observable<BaseResponse<SystemBean>> getSalesSellerEntryList() {
-        return getApi().getSalesSellerEntryList().compose(RxUtils.<BaseResponse<SystemBean>>rxSchedulerHelper());
+    public Observable<BaseResponse<RiderBean>> getSalesSellerEntryList(String clientType, String globalCode, String mobile, String mCode) {
+        return getApi()
+                .getSalesSellerEntryList(clientType, globalCode, mobile, mCode)
+                .compose(RxUtils.<BaseResponse<RiderBean>>rxSchedulerHelper());
     }
-
 }

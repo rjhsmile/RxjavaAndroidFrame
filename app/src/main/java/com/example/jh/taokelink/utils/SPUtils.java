@@ -27,18 +27,19 @@ import java.util.Map;
  */
 
 public class SPUtils {
+
     private SharedPreferences sp;
     private SharedPreferences.Editor editor;
+    private String shared_preferences = "shared_preferences";
 
     /**
      * SPUtils构造函数
      * <p>在Application中初始化</p>
      *
      * @param context 上下文
-     * @param spName  spName
      */
-    public SPUtils(Context context, String spName) {
-        sp = context.getSharedPreferences(spName, Context.MODE_PRIVATE);
+    public SPUtils(Context context) {
+        sp = context.getSharedPreferences(shared_preferences, Context.MODE_PRIVATE);
         editor = sp.edit();
         editor.apply();
     }

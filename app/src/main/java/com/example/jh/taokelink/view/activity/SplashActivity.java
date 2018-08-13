@@ -29,7 +29,7 @@ public class SplashActivity extends BaseActivity {
 
     private void startNextActivity() {
         //1.读取状态信息？
-        SPUtils sp = new SPUtils(this, "shared_preferences");
+        SPUtils sp = new SPUtils(this);
         boolean isUsed=sp.getBoolean("isUsed",false);
         //2.根据使用状态，启动下个页面
         if(isUsed){//表示使用过

@@ -12,4 +12,8 @@ public class Constants {
 
     /*接口请求参数*/
     public static final String SESSIONID_STRING = "sessionId";
+    //国际化语言
+    public static final String LOCAL_LANGUAGE_KEY = "language";
+    public static final String LOCAL_LANGUAGE_ZH = "zh";
+    public static final String LOCAL_LANGUAGE_EN = "en";
 }
