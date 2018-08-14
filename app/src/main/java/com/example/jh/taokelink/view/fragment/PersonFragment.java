@@ -14,7 +14,7 @@ import com.example.jh.taokelink.R;
  * @PACKAGE_NAME：PersionerFragment
  */
 
-public class PersionerFragment extends BaseFragment {
+public class PersonFragment extends BaseFragment {
     @Override
     protected void initView() {
 

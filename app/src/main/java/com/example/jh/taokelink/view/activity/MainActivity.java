@@ -16,7 +16,7 @@ import com.example.jh.taokelink.utils.UiUtils;
 import com.example.jh.taokelink.view.fragment.ChoiceFragment;
 import com.example.jh.taokelink.view.fragment.FenleiFragment;
 import com.example.jh.taokelink.view.fragment.MainFragment;
-import com.example.jh.taokelink.view.fragment.PersionerFragment;
+import com.example.jh.taokelink.view.fragment.PersonFragment;
 
 import butterknife.BindView;
 
@@ -51,7 +51,7 @@ public class MainActivity extends BaseActivity {
         //基金
         addTab(tabs, names[2], R.drawable.selector_tab_icon_fund, FenleiFragment.class);
         //个人中心
-        addTab(tabs, names[3], R.drawable.selector_tab_icon_asset, PersionerFragment.class);
+        addTab(tabs, names[3], R.drawable.selector_tab_icon_asset, PersonFragment.class);
     }
 
     public void addTab(CostomFragmentTabHost tabs, CharSequence tabName, int tabIcon, Class<?> fragmentClass) {

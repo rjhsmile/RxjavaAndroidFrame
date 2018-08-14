@@ -24,7 +24,6 @@ public class MainFragment extends BaseFragment {
                     public void onSuccess(BaseResponse<RiderBean> riderBeanBaseResponse) {
 
                     }
-
                 });
 
     }

@@ -2,6 +2,7 @@ package com.example.jh.taokelink.http;
 
 /**
  * Created by dqm on 2018/3/26.
+ * 基本数据基类
  */
 
 public class BaseResponse<T> {

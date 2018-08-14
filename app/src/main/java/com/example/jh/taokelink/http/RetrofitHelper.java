@@ -59,8 +59,8 @@ public class RetrofitHelper {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .client(okHttpClient)
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create()) //rx与retrofit混用
+                .addConverterFactory(GsonConverterFactory.create())  //rx与Gson混用
                 .build();
 
         return retrofit.create(clazz);
