@@ -67,19 +67,22 @@ public class ExceptionEngine {
                     break;
             }
             return ex;
-        } else if (e instanceof ServerException) { // 服务器返回的错误
+        } else if (e instanceof ServerException) {
+            // 服务器返回的错误
             ServerException resultException = (ServerException) e;
             ex = new ApiException(resultException, resultException.code);
             ex.message = resultException.message;
             return ex;
         } else if (e instanceof JSONException || e instanceof ParseException) {
+            //均视为解析错误
             ex = new ApiException(e, ErrorType.PARSE_ERROR);
-            ex.message = App.getInstance().getString(R.string.server_exception); // 均视为解析错误
+            ex.message = App.getInstance().getString(R.string.server_exception);
             return ex;
         } else if (e instanceof ConnectException || e instanceof SocketTimeoutException ||
                 e instanceof ConnectTimeoutException || e instanceof UnknownHostException) {
+            // 均视为网络错误
             ex = new ApiException(e, ErrorType.UNKONW);
-            ex.message = App.getInstance().getString(R.string.server_exception); // 均视为网络错误
+            ex.message = App.getInstance().getString(R.string.server_exception);
             return ex;
         }
         return ex;

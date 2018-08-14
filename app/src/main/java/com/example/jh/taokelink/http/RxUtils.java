@@ -11,6 +11,7 @@ import rx.schedulers.Schedulers;
  * RxUtils 关于 rx
  */
 public class RxUtils {
+
     /**
      * 统一线程处理
      *
@@ -39,9 +40,9 @@ public class RxUtils {
             @Override
             public Observable<T> call(Observable<T> observable) {
                 return observable
-                        .debounce(delaySeconds * 1000, TimeUnit.MICROSECONDS)//表示延时多少秒后执行
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread());
+                        .delay(delaySeconds * 1000, TimeUnit.MICROSECONDS)//表示延时多少秒后执行
+                        .subscribeOn(Schedulers.io())//网络请求是在子线程的
+                        .observeOn(AndroidSchedulers.mainThread());//界面更新在主线程
             }
         };
     }

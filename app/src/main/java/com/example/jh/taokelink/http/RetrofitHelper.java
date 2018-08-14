@@ -1,11 +1,7 @@
 package com.example.jh.taokelink.http;
 
-import android.util.Log;
-
 import com.example.jh.taokelink.Constants;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -40,19 +36,19 @@ public class RetrofitHelper {
 
     public static <T> T createApi(Class<T> clazz, String baseUrl) {
 
-
-        // File cacheFile = new File(App.getInstance().getCacheDir(), "cache");
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BASIC);
+        //File cacheFile = new File(App.getInstance().getCacheDir(), "cache");
         //Cache cache = new Cache(cacheFile, 1024 * 1024 * 100); //100Mb
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .writeTimeout(TIME, TimeUnit.SECONDS)
                 .readTimeout(TIME, TimeUnit.SECONDS)
                 .connectTimeout(TIME, TimeUnit.SECONDS)
-                //错误重连
-                .retryOnConnectionFailure(true)
-                .addInterceptor(new AddCookiesInterceptor())
-                .addInterceptor(new ReceivedCookiesInterceptor())
-                //.addNetworkInterceptor(new HttpCacheInterceptor())
-                //.cache(cache)
+                .retryOnConnectionFailure(true)  //错误重连
+                .addInterceptor(logging)//添加Log打印
+                .addInterceptor(new BaseParamsInterceptor())//公共参数
+                //.addInterceptor(new ReceivedCookiesInterceptor())
+                //.cache(cache)//添加缓存
                 .build();
 
 

@@ -1,6 +1,6 @@
 package com.example.jh.taokelink.api;
 
-import com.example.jh.taokelink.entity.RiderBean;
+import com.example.jh.taokelink.entity.SystemBean;
 import com.example.jh.taokelink.http.BaseResponse;
 import com.example.jh.taokelink.http.RetrofitHelper;
 import com.example.jh.taokelink.http.RxUtils;
@@ -16,19 +16,19 @@ import rx.Observable;
  * 描述：
  */
 
-public class OkhttpSource implements ApiService {
+public class ApiSource implements ApiService {
 
-    private static volatile OkhttpSource instance = null;
+    private static volatile ApiSource instance = null;
 
     private ApiService getApi() {
         return RetrofitHelper.getInstance().createApi(ApiService.class);
     }
 
-    public static OkhttpSource getInstance() {
+    public static ApiSource getInstance() {
         if (instance == null) {
-            synchronized (OkhttpSource.class) {
+            synchronized (ApiSource.class) {
                 if (instance == null) {
-                    instance = new OkhttpSource();
+                    instance = new ApiSource();
                 }
             }
         }
@@ -37,7 +37,7 @@ public class OkhttpSource implements ApiService {
 
 
     @Override
-    public Observable<BaseResponse<RiderBean>> getSalesSellerEntryList() {
-        return getApi().getSalesSellerEntryList().compose(RxUtils.<BaseResponse<RiderBean>>rxSchedulerHelper());
+    public Observable<BaseResponse<SystemBean>> getSalesSellerEntryList() {
+        return getApi().getSalesSellerEntryList().compose(RxUtils.<BaseResponse<SystemBean>>rxSchedulerHelper());
     }
 }

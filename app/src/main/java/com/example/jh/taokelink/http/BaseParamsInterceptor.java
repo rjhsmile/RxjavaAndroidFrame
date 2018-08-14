@@ -4,18 +4,21 @@ import com.example.jh.taokelink.App;
 import com.example.jh.taokelink.utils.AppUtils;
 import com.example.jh.taokelink.utils.Keys;
 import com.example.jh.taokelink.utils.Md5Util;
+
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.TreeMap;
+
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
 
 /**
- * @author : jc.lu
+ * @author : rjhsmile
  * @create : 17/07/07.
+ * 功能：拦截器组件（Interceptor）添加公共参数
  */
-public class AddCookiesInterceptor implements Interceptor {
+public class BaseParamsInterceptor implements Interceptor {
 
     @Override
     public Response intercept(Chain chain) throws IOException {
@@ -23,9 +26,8 @@ public class AddCookiesInterceptor implements Interceptor {
         builder.addHeader("appkey", Keys.appkey);
         builder.addHeader("os", "android");
         builder.addHeader("t", System.currentTimeMillis() + "");//时间戳
-        //builder.addHeader("v", AppUtils.getVersionName(App.getInstance()));//app版本号
-        //签名
-        //builder.addHeader("sign", singnParam(chain));//md5签名串
+        builder.addHeader("v", "1.0");//app版本号
+        builder.addHeader("sign", singnParam(chain));//md5签名串
         return chain.proceed(builder.build());
     }
 

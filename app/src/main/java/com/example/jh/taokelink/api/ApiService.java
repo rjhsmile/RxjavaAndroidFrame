@@ -1,9 +1,9 @@
 package com.example.jh.taokelink.api;
 
-import com.example.jh.taokelink.entity.RiderBean;
+import com.example.jh.taokelink.entity.SystemBean;
 import com.example.jh.taokelink.http.BaseResponse;
+
 import retrofit2.http.POST;
-import retrofit2.http.Query;
 import rx.Observable;
 
 /**
@@ -16,11 +16,11 @@ import rx.Observable;
 
 public interface ApiService {
     /**
-     * 商家入驻
+     * 系统初始化
      *
      * @return
      */
     @POST("/api/system")
-    Observable<BaseResponse<RiderBean>> getSalesSellerEntryList();
+    Observable<BaseResponse<SystemBean>> getSalesSellerEntryList();
 
 }
