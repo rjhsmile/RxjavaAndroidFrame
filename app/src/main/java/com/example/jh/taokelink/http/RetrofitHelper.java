@@ -46,7 +46,7 @@ public class RetrofitHelper {
                 .connectTimeout(TIME, TimeUnit.SECONDS)
                 .retryOnConnectionFailure(true)  //错误重连
                 .addInterceptor(logging)//添加Log打印
-                .addInterceptor(new BaseParamsInterceptor())//公共参数
+                .addInterceptor(new ParamsInterceptor())//公共参数
                 //.addInterceptor(new ReceivedCookiesInterceptor())
                 //.cache(cache)//添加缓存
                 .build();

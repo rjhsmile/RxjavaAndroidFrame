@@ -3,9 +3,12 @@ package com.example.jh.taokelink.view.fragment;
 import com.example.jh.taokelink.BaseFragment;
 import com.example.jh.taokelink.R;
 import com.example.jh.taokelink.api.ApiSource;
-import com.example.jh.taokelink.entity.SystemBean;
+import com.example.jh.taokelink.entity.CopyBean;
+import com.example.jh.taokelink.http.BaseArrayResponse;
 import com.example.jh.taokelink.http.BaseResponse;
 import com.example.jh.taokelink.http.ResponseObserver;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author：rjhsmile
@@ -17,11 +20,24 @@ import com.example.jh.taokelink.http.ResponseObserver;
 public class MainFragment extends BaseFragment {
     @Override
     protected void initView() {
-
-        ApiSource.getInstance().getSalesSellerEntryList().subscribe(
-                new ResponseObserver<BaseResponse<SystemBean>>(getActivity(), true) {
+        Map<String,Object> map=new HashMap<>();
+        map.put("pasteContent", "caa65cb4c173f4f661406cef515acc36");
+        ApiSource.getInstance().getCopyData(map).subscribe(
+                new ResponseObserver<BaseResponse<CopyBean>>(getActivity(), true) {
                     @Override
-                    public void onSuccess(BaseResponse<SystemBean> riderBeanBaseResponse) {
+                    public void onSuccess(BaseResponse<CopyBean> riderBeanBaseResponse) {
+
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                    }
+                });
+
+       /* ApiSource.getInstance().getSalesSellerEntryList(map).subscribe(
+                new ResponseObserver<BaseArrayResponse<String>>(getActivity(), true) {
+                    @Override
+                    public void onSuccess(BaseArrayResponse<String> riderBeanBaseResponse) {
 
                     }
 
@@ -29,8 +45,7 @@ public class MainFragment extends BaseFragment {
                     public void onError(Throwable e) {
                         super.onError(e);
                     }
-                });
-
+                });*/
     }
 
     @Override

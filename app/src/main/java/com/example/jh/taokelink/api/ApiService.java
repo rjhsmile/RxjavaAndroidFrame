@@ -1,9 +1,13 @@
 package com.example.jh.taokelink.api;
 
-import com.example.jh.taokelink.entity.SystemBean;
+import com.example.jh.taokelink.entity.CopyBean;
+import com.example.jh.taokelink.http.BaseArrayResponse;
 import com.example.jh.taokelink.http.BaseResponse;
 
+import java.util.Map;
+
 import retrofit2.http.POST;
+import retrofit2.http.QueryMap;
 import rx.Observable;
 
 /**
@@ -18,9 +22,23 @@ public interface ApiService {
     /**
      * 系统初始化
      *
+     * @param map
      * @return
      */
-    @POST("/api/system")
-    Observable<BaseResponse<SystemBean>> getSalesSellerEntryList();
+    @POST("/data/data.do")
+    Observable<BaseArrayResponse<String>> getSalesSellerEntryList(
+            @QueryMap Map<String, Object> map
+    );
+
+    /**
+     * 口令查询接口
+     *
+     * @param map
+     * @return
+     */
+    @POST("/api/search/paste_item")
+    Observable<BaseResponse<CopyBean>> getCopyData(
+            @QueryMap Map<String, Object> map
+    );
 
 }

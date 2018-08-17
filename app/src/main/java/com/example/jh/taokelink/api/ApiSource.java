@@ -1,9 +1,12 @@
 package com.example.jh.taokelink.api;
 
-import com.example.jh.taokelink.entity.SystemBean;
+import com.example.jh.taokelink.entity.CopyBean;
+import com.example.jh.taokelink.http.BaseArrayResponse;
 import com.example.jh.taokelink.http.BaseResponse;
 import com.example.jh.taokelink.http.RetrofitHelper;
 import com.example.jh.taokelink.http.RxUtils;
+
+import java.util.Map;
 
 import rx.Observable;
 
@@ -24,6 +27,10 @@ public class ApiSource implements ApiService {
         return RetrofitHelper.getInstance().createApi(ApiService.class);
     }
 
+    private ApiService getApi(String baseUrl) {
+        return RetrofitHelper.getInstance().createApi(ApiService.class, baseUrl);
+    }
+
     public static ApiSource getInstance() {
         if (instance == null) {
             synchronized (ApiSource.class) {
@@ -37,7 +44,12 @@ public class ApiSource implements ApiService {
 
 
     @Override
-    public Observable<BaseResponse<SystemBean>> getSalesSellerEntryList() {
-        return getApi().getSalesSellerEntryList().compose(RxUtils.<BaseResponse<SystemBean>>rxSchedulerHelper());
+    public Observable<BaseArrayResponse<String>> getSalesSellerEntryList(Map<String, Object> map) {
+        return getApi().getSalesSellerEntryList(map).compose(RxUtils.<BaseArrayResponse<String>>rxSchedulerHelper());
+    }
+
+    @Override
+    public Observable<BaseResponse<CopyBean>> getCopyData(Map<String, Object> map) {
+        return getApi().getCopyData(map).compose(RxUtils.<BaseResponse<CopyBean>>rxSchedulerHelper());
     }
 }
