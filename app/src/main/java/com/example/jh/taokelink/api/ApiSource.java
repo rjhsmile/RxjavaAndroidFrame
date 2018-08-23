@@ -1,5 +1,6 @@
 package com.example.jh.taokelink.api;
 
+import com.example.jh.taokelink.entity.Categorys;
 import com.example.jh.taokelink.entity.CopyBean;
 import com.example.jh.taokelink.http.BaseArrayResponse;
 import com.example.jh.taokelink.http.BaseResponse;
@@ -8,6 +9,7 @@ import com.example.jh.taokelink.http.RxUtils;
 
 import java.util.Map;
 
+import retrofit2.http.Field;
 import rx.Observable;
 
 
@@ -44,8 +46,9 @@ public class ApiSource implements ApiService {
 
 
     @Override
-    public Observable<BaseArrayResponse<String>> getSalesSellerEntryList(Map<String, Object> map) {
-        return getApi().getSalesSellerEntryList(map).compose(RxUtils.<BaseArrayResponse<String>>rxSchedulerHelper());
+    public Observable<BaseResponse<Categorys>> getSalesSellerEntryList(int start, int count) {
+        return getApi().getSalesSellerEntryList(start, count).
+                compose(RxUtils.<BaseResponse<Categorys>>rxSchedulerHelper());
     }
 
     @Override

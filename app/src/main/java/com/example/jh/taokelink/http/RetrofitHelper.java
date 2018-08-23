@@ -1,9 +1,7 @@
 package com.example.jh.taokelink.http;
 
 import com.example.jh.taokelink.Constants;
-
 import java.util.concurrent.TimeUnit;
-
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -36,17 +34,18 @@ public class RetrofitHelper {
 
     public static <T> T createApi(Class<T> clazz, String baseUrl) {
 
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.BASIC);
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         //File cacheFile = new File(App.getInstance().getCacheDir(), "cache");
         //Cache cache = new Cache(cacheFile, 1024 * 1024 * 100); //100Mb
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .writeTimeout(TIME, TimeUnit.SECONDS)
-                .readTimeout(TIME, TimeUnit.SECONDS)
-                .connectTimeout(TIME, TimeUnit.SECONDS)
-                .retryOnConnectionFailure(true)  //错误重连
-                .addInterceptor(logging)//添加Log打印
-                .addInterceptor(new ParamsInterceptor())//公共参数
+                .connectTimeout(TIME,TimeUnit.SECONDS)       //设置连接超时
+                .readTimeout(TIME,TimeUnit.SECONDS)          //设置读取超时
+                .writeTimeout(TIME,TimeUnit.SECONDS)         //设置写入超时
+                //.cache(new Cache(getCacheDir(),10 * 1024 * 1024))   //设置缓存目录和10M缓存
+                //.retryOnConnectionFailure(true)  //错误重连
+                .addInterceptor(interceptor)//添加日志拦截器（该方法也可以设置公共参数，头信息）
+               // .addInterceptor(new ParamsInterceptor())//公共参数
                 //.addInterceptor(new ReceivedCookiesInterceptor())
                 //.cache(cache)//添加缓存
                 .build();
@@ -54,7 +53,7 @@ public class RetrofitHelper {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
-                .client(okHttpClient)
+                .client(okHttpClient)//设置OkHttp
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create()) //rx与retrofit混用
                 .addConverterFactory(GsonConverterFactory.create())  //rx与Gson混用
                 .build();

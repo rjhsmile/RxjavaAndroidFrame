@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">框架搭建</string>
+    <string name="app_name">Android Frame</string>
     <!-- error -->
     <string name="title_activity_guide">GuideActivity</string>
 

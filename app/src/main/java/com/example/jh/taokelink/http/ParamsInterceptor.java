@@ -21,6 +21,7 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import okhttp3.FormBody;
+import okhttp3.Headers;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
@@ -38,8 +39,8 @@ public class ParamsInterceptor implements Interceptor {
 
     @Override
     public Response intercept(Chain chain) throws IOException {
-        Request oldRequest = chain.request();
-        // 新的请求
+        Request request = chain.request();
+      /*  // 新的请求
         Request.Builder builder = oldRequest.newBuilder();
         builder.method(oldRequest.method(), oldRequest.body());
         //添加公共参数,添加到header中
@@ -51,48 +52,48 @@ public class ParamsInterceptor implements Interceptor {
 
         Request newRequest = builder.build();
 
-        return chain.proceed(newRequest);
+        return chain.proceed(newRequest);*/
 
         //Request request = chain.request();
-        /* //请求定制：添加请求头
-        Request.Builder builder = request.newBuilder();
+        //请求定制：添加请求头
+       /* Request.Builder builder = request.newBuilder();
         builder.header("appkey", Keys.appkey);
         builder.header("os", "android");
-        builder.header("t",  String.valueOf(System.currentTimeMillis()));//时间戳
+        builder.header("t", String.valueOf(System.currentTimeMillis()));//时间戳
         builder.header("v", "1.0");//app版本号
         builder.header("sign", singnParam(request));
         return chain.proceed(builder.build());*/
 
-        /*HttpUrl url = request.url().newBuilder() //请求尾部链接
+        HttpUrl url = request.url().newBuilder() //请求尾部链接
                 .addQueryParameter("appkey", Keys.appkey)
                 .addQueryParameter("os", "android")
-                .addQueryParameter("t", System.currentTimeMillis() + "")
-                .addQueryParameter("v", "1.0")
+                .addQueryParameter("t", String.valueOf(System.currentTimeMillis()))
+                .addQueryParameter("v", "1")
                 .addQueryParameter("sign", singnParam(request))
                 .build();
 
-         request = request.newBuilder()
+        request = request.newBuilder()
                 .method(request.method(), request.body())
                 //添加到请求里
                 .url(url)
                 .build();
 
-        return chain.proceed(request);*/
+        return chain.proceed(request);
     }
 
     /**
      * 获取字符串+签名
      *
      * @param request
-     * @param <T>
      * @return
      */
-    private <T> String singnParam(Request request) {
+    private String singnParam(Request request) {
         HttpUrl url = request.url();
         String scheme = url.scheme();//  http https
         String host = url.host();//   127.0.0.1
         String path = url.encodedPath();//  /test/upload/img
         String query = url.encodedQuery();//  userName=xiaoming&userPassword=12345
+
         //创建StringBuffer准备拼接参数
         StringBuffer sb = new StringBuffer();
         //sb.append(scheme).append(host).append(path).append("?");
@@ -109,10 +110,11 @@ public class ParamsInterceptor implements Interceptor {
         }
         sb.append("appkey").append(Keys.appkey).append("os").append("android")
                 .append("t").append(String.valueOf(System.currentTimeMillis()))
-                .append("V").append("1.0");
+                .append("v").append("1").append(Keys.appsecret);
+
         //ParameterNames和ParameterKey拼接进行加密
-        String newUrl = Md5Util.md5(sb + Keys.appsecret);
-        return newUrl;
+        String newUrl = sb.toString();
+        return Md5Util.md5(newUrl);
     }
 
 }

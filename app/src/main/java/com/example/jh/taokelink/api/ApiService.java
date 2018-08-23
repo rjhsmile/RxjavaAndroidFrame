@@ -1,11 +1,15 @@
 package com.example.jh.taokelink.api;
 
+import com.example.jh.taokelink.entity.Categorys;
 import com.example.jh.taokelink.entity.CopyBean;
 import com.example.jh.taokelink.http.BaseArrayResponse;
 import com.example.jh.taokelink.http.BaseResponse;
 
 import java.util.Map;
 
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.QueryMap;
 import rx.Observable;
@@ -22,12 +26,12 @@ public interface ApiService {
     /**
      * 系统初始化
      *
-     * @param map
      * @return
      */
-    @POST("/data/data.do")
-    Observable<BaseArrayResponse<String>> getSalesSellerEntryList(
-            @QueryMap Map<String, Object> map
+    @FormUrlEncoded
+    @POST("v2/movie/top250")
+    Observable<BaseResponse<Categorys>> getSalesSellerEntryList(
+            @Field("start") int start , @Field("count") int count
     );
 
     /**
@@ -36,7 +40,7 @@ public interface ApiService {
      * @param map
      * @return
      */
-    @POST("/api/search/paste_item")
+    @POST("api/search/paste_item")
     Observable<BaseResponse<CopyBean>> getCopyData(
             @QueryMap Map<String, Object> map
     );

@@ -65,11 +65,11 @@ public abstract class ResponseObserver<T> implements Observer<T> {
      * @param t
      */
     @Override
-    public void onNext(final T t) {
+    public void onNext(T t) {
         //失败方法
         if (t instanceof BaseResponse || t instanceof BaseArrayResponse) {
             BaseResponse response = (BaseResponse) t;
-            if (response.code != 1) {   //请求失败
+            if (response.code != 0) {   //请求失败
                 if (showErrorMsg)
                     //onFail(response.code, response.message);
                     onCompleted();
