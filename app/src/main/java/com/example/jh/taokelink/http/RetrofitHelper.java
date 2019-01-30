@@ -1,11 +1,12 @@
 package com.example.jh.taokelink.http;
-
+import com.example.jh.taokelink.BuildConfig;
 import com.example.jh.taokelink.Constants;
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+
 import java.util.concurrent.TimeUnit;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -16,6 +17,7 @@ public class RetrofitHelper {
 
     private static int TIME = 10;
     private static RetrofitHelper retrofitHelper;
+    private static OkHttpClient okHttpClient = null;
 
     public static RetrofitHelper getInstance() {
         if (null == retrofitHelper) {
@@ -34,27 +36,34 @@ public class RetrofitHelper {
 
     public static <T> T createApi(Class<T> clazz, String baseUrl) {
 
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+       /* HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        //File cacheFile = new File(App.getInstance().getCacheDir(), "cache");
-        //Cache cache = new Cache(cacheFile, 1024 * 1024 * 100); //100Mb
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .connectTimeout(TIME,TimeUnit.SECONDS)       //设置连接超时
-                .readTimeout(TIME,TimeUnit.SECONDS)          //设置读取超时
-                .writeTimeout(TIME,TimeUnit.SECONDS)         //设置写入超时
-                //.cache(new Cache(getCacheDir(),10 * 1024 * 1024))   //设置缓存目录和10M缓存
-                //.retryOnConnectionFailure(true)  //错误重连
-                .addInterceptor(interceptor)//添加日志拦截器（该方法也可以设置公共参数，头信息）
-               // .addInterceptor(new ParamsInterceptor())//公共参数
-                //.addInterceptor(new ReceivedCookiesInterceptor())
-                //.cache(cache)//添加缓存
-                .build();
+
+        File cacheFile = new File(App.getInstance().getCacheDir(), "cache");
+        Cache cache = new Cache(cacheFile, 1024 * 1024 * 50); //50Mb*/
+
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        //builder.addInterceptor(new ParamsInterceptor());
+        if (BuildConfig.DEBUG) {
+            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+            builder.addInterceptor(loggingInterceptor);
+        }
+        //设置超时
+        builder.connectTimeout(TIME, TimeUnit.SECONDS);
+        builder.readTimeout(TIME, TimeUnit.SECONDS);
+        builder.writeTimeout(TIME, TimeUnit.SECONDS);
+        //设置缓存
+        //builder.cache(cache);
+        //错误重连
+        builder.retryOnConnectionFailure(true);
+        okHttpClient = builder.build();
 
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .client(okHttpClient)//设置OkHttp
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create()) //rx与retrofit混用
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())  //rx与Gson混用
                 .build();
 

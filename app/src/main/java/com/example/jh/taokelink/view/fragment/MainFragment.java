@@ -1,24 +1,21 @@
 package com.example.jh.taokelink.view.fragment;
 
 import com.example.jh.taokelink.BaseFragment;
+import com.example.jh.taokelink.Constants;
 import com.example.jh.taokelink.R;
-import com.example.jh.taokelink.api.ApiService;
 import com.example.jh.taokelink.api.ApiSource;
 import com.example.jh.taokelink.entity.Categorys;
-import com.example.jh.taokelink.entity.CopyBean;
-import com.example.jh.taokelink.http.BaseArrayResponse;
+import com.example.jh.taokelink.entity.SystemBean;
 import com.example.jh.taokelink.http.BaseResponse;
 import com.example.jh.taokelink.http.ResponseObserver;
+import com.example.jh.taokelink.http.exception.ApiException;
 import com.example.jh.taokelink.utils.Keys;
 import com.example.jh.taokelink.utils.Md5Util;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 
-import okhttp3.HttpUrl;
-import okhttp3.Request;
+import io.reactivex.disposables.Disposable;
 
 /**
  * @author：rjhsmile
@@ -30,22 +27,21 @@ import okhttp3.Request;
 public class MainFragment extends BaseFragment {
     @Override
     protected void initView() {
-        Map<String, Object> map = new HashMap<>();
-        map.put("pasteContent", "復·制这段描述，€S2lHbXGwILO€ ，咑閞【手机淘宝】即可查看");
-        ApiSource.getInstance().getCopyData(map).subscribe(
-                new ResponseObserver<BaseResponse<CopyBean>>(getActivity(), true) {
+
+      /*  ApiSource.getInstance().getCopyData(1).subscribe(
+                new ResponseObserver<BaseResponse<String>>(getActivity(), true) {
                     @Override
-                    public void onSuccess(BaseResponse<CopyBean> riderBeanBaseResponse) {
+                    public void onSuccess(BaseResponse<String> copyBeanBaseResponse) {
 
                     }
 
                     @Override
-                    public void onError(Throwable e) {
-                        super.onError(e);
+                    public void onError(ApiException e) {
+                        //Toast.makeText(getActivity(),e.toString()+e.code,Toast.LENGTH_SHORT).show();
                     }
-                });
+                });*/
 
-       /* ApiSource.getInstance().getSalesSellerEntryList(0,20).subscribe(
+      /*  ApiSource.getInstance().getSalesSellerEntryList(0, 20).subscribe(
                 new ResponseObserver<BaseResponse<Categorys>>(getActivity(), true) {
                     @Override
                     public void onSuccess(BaseResponse<Categorys> response) {
@@ -53,10 +49,37 @@ public class MainFragment extends BaseFragment {
                     }
 
                     @Override
-                    public void onError(Throwable e) {
-                        super.onError(e);
+                    public void onError(ApiException e) {
+
                     }
                 });*/
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("appId", Constants.AppId);
+        map.put("platform","1");
+        map.put("timestamp",String.valueOf(System.currentTimeMillis()));
+        map.put("version","1");
+        map.put("sign",sign());
+        ApiSource.getInstance().getSystem(map ).subscribe(new ResponseObserver<BaseResponse<SystemBean>>(getActivity(), true) {
+            @Override
+            public void onSuccess(BaseResponse<SystemBean> systemBeanBaseResponse) {
+
+            }
+            @Override
+            public void onError(ApiException e) {
+
+            }
+        });
+    }
+
+    private String sign() {
+        StringBuffer buffer=new StringBuffer();
+        buffer.append("appId=").append(Constants.AppId)
+                .append("&platform=").append("1")
+                .append("&timestamp=").append(String.valueOf(System.currentTimeMillis()))
+                .append("&version=").append("1")
+                .append("&api_token=").append(Constants.ApiToken);
+        return Md5Util.md5(buffer.toString());
     }
 
 
@@ -65,40 +88,5 @@ public class MainFragment extends BaseFragment {
         return R.layout.empty_view;
     }
 
-    /**
-     * 获取字符串+签名
-     *
-     * @param request
-     * @return
-     */
-    private String singnParam(Request request) {
-        HttpUrl url = request.url();
-        String scheme = url.scheme();//  http https
-        String host = url.host();//   127.0.0.1
-        String path = url.encodedPath();//  /test/upload/img
-        String query = url.encodedQuery();//  userName=xiaoming&userPassword=12345
-
-        //创建StringBuffer准备拼接参数
-        StringBuffer sb = new StringBuffer();
-        //sb.append(scheme).append(host).append(path).append("?");
-        Set<String> queryList = url.queryParameterNames();
-        Iterator<String> iterator = queryList.iterator();
-        //参数拼接
-        for (int i = 0; i < queryList.size(); i++) {
-            String queryName = iterator.next();
-            String queryKey = url.queryParameter(queryName);
-            sb.append(queryName).append(queryKey);
-           /* if (iterator.hasNext()) {
-                sb.append("&");
-            }*/
-        }
-        sb.append("appkey").append(Keys.appkey).append("os").append("android")
-                .append("t").append(String.valueOf(System.currentTimeMillis()))
-                .append("v").append("1").append(Keys.appsecret);
-
-        //ParameterNames和ParameterKey拼接进行加密
-        String newUrl = sb.toString();
-        return Md5Util.md5(newUrl);
-    }
 
 }

@@ -1,34 +1,35 @@
 package com.example.jh.taokelink.http;
 
+import android.text.TextUtils;
 import android.util.Log;
 
-import com.example.jh.taokelink.App;
 import com.example.jh.taokelink.Constants;
-import com.example.jh.taokelink.utils.AppUtils;
 import com.example.jh.taokelink.utils.Keys;
 import com.example.jh.taokelink.utils.Md5Util;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
 import okhttp3.FormBody;
-import okhttp3.Headers;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okio.Buffer;
+
 
 /**
  * @author : rjhsmile
@@ -39,82 +40,50 @@ public class ParamsInterceptor implements Interceptor {
 
     @Override
     public Response intercept(Chain chain) throws IOException {
-        Request request = chain.request();
-      /*  // 新的请求
-        Request.Builder builder = oldRequest.newBuilder();
-        builder.method(oldRequest.method(), oldRequest.body());
-        //添加公共参数,添加到header中
-        builder.header("appkey", Keys.appkey);
-        builder.header("os", "android");
-        builder.header("t", String.valueOf(System.currentTimeMillis()));//时间戳
-        builder.header("v", "1.0");//app版本号
-        builder.header("sign", singnParam(oldRequest));
+        //获取原先的请求
+        Request originalRequest = chain.request();
+        //重新构建url
+        HttpUrl.Builder builder = originalRequest.url().newBuilder();
+        //如果是post请求的话就把参数重新拼接一下，get请求的话就可以直接加入公共参数了
+        if(originalRequest.method().equals("POST")){
+            FormBody body = (FormBody) originalRequest.body();
+            for(int i = 0; i < body.size();i++){
+                Log.i("RequestFatory",body.name(i) + "---" + body.value(i));
+                builder.addQueryParameter(body.name(i),body.value(i));
+            }
+        }
 
-        Request newRequest = builder.build();
+        //公共参数
+        builder.addQueryParameter("appId", Constants.AppId);
+        builder.addQueryParameter("platform", "1");
+        builder.addQueryParameter("timestamp", String.valueOf(System.currentTimeMillis()));
+        builder.addQueryParameter("version", "1");
+        builder.addQueryParameter("sign", mSignParams(chain.request()));
 
-        return chain.proceed(newRequest);*/
-
-        //Request request = chain.request();
-        //请求定制：添加请求头
-       /* Request.Builder builder = request.newBuilder();
-        builder.header("appkey", Keys.appkey);
-        builder.header("os", "android");
-        builder.header("t", String.valueOf(System.currentTimeMillis()));//时间戳
-        builder.header("v", "1.0");//app版本号
-        builder.header("sign", singnParam(request));
-        return chain.proceed(builder.build());*/
-
-        HttpUrl url = request.url().newBuilder() //请求尾部链接
-                .addQueryParameter("appkey", Keys.appkey)
-                .addQueryParameter("os", "android")
-                .addQueryParameter("t", String.valueOf(System.currentTimeMillis()))
-                .addQueryParameter("v", "1")
-                .addQueryParameter("sign", singnParam(request))
-                .build();
-
-        request = request.newBuilder()
-                .method(request.method(), request.body())
-                //添加到请求里
-                .url(url)
-                .build();
-
+        //新的url
+        HttpUrl httpUrl = builder.build();
+        Request request = originalRequest.newBuilder()
+                .method(originalRequest.method(),originalRequest.body())
+                .url(httpUrl).build();
         return chain.proceed(request);
     }
 
-    /**
-     * 获取字符串+签名
-     *
-     * @param request
-     * @return
-     */
-    private String singnParam(Request request) {
-        HttpUrl url = request.url();
-        String scheme = url.scheme();//  http https
-        String host = url.host();//   127.0.0.1
-        String path = url.encodedPath();//  /test/upload/img
-        String query = url.encodedQuery();//  userName=xiaoming&userPassword=12345
+    private String mSignParams(Request request) throws UnsupportedEncodingException {
+        FormBody formBody = (FormBody) request.body();
 
-        //创建StringBuffer准备拼接参数
-        StringBuffer sb = new StringBuffer();
-        //sb.append(scheme).append(host).append(path).append("?");
-        Set<String> queryList = url.queryParameterNames();
-        Iterator<String> iterator = queryList.iterator();
-        //参数拼接
-        for (int i = 0; i < queryList.size(); i++) {
-            String queryName = iterator.next();
-            String queryKey = url.queryParameter(queryName);
-            sb.append(queryName).append(queryKey);
-           /* if (iterator.hasNext()) {
-                sb.append("&");
-            }*/
+        Map<String, String> bodyMap = new HashMap<>();
+        List<String> nameList = new ArrayList<>();
+
+        for (int i = 0; i < formBody.size(); i++) {
+            nameList.add(formBody.encodedName(i));
+            bodyMap.put(formBody.encodedName(i), URLDecoder.decode(formBody.encodedValue(i), "UTF-8"));
         }
-        sb.append("appkey").append(Keys.appkey).append("os").append("android")
-                .append("t").append(String.valueOf(System.currentTimeMillis()))
-                .append("v").append("1").append(Keys.appsecret);
-
-        //ParameterNames和ParameterKey拼接进行加密
-        String newUrl = sb.toString();
-        return Md5Util.md5(newUrl);
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < nameList.size(); i++) {
+            builder.append(nameList.get(i)).append("=")
+                    .append(URLDecoder.decode(bodyMap.get(nameList.get(i)), "UTF-8")).append("&");
+        }
+        builder.append("&api_token=").append(Constants.ApiToken);
+        return Md5Util.md5(builder.toString());
     }
-
 }

@@ -6,14 +6,11 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.example.jh.taokelink.R;
 import com.example.jh.taokelink.http.exception.ApiException;
-import com.example.jh.taokelink.http.exception.ErrorType;
-import com.example.jh.taokelink.http.exception.ExceptionEngine;
-import com.example.jh.taokelink.utils.ToastUtils;
 import com.example.jh.taokelink.widget.nicedialog.BaseNiceDialog;
 import com.example.jh.taokelink.widget.nicedialog.NiceDialog;
 
+import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
-import rx.Observer;
 
 
 /**
@@ -27,7 +24,6 @@ public abstract class ResponseObserver<T> implements Observer<T> {
     private boolean mAutoDismiss = false;
     private boolean showErrorMsg = true;
     private BaseNiceDialog progressBar;
-    private Disposable mDisposable;//接口取消
 
     /**
      * 成功抽象类
@@ -35,6 +31,8 @@ public abstract class ResponseObserver<T> implements Observer<T> {
      * @param t
      */
     public abstract void onSuccess(T t);
+
+    public abstract void onError(ApiException e);
 
     public ResponseObserver(Context context) {
         mContext = context;
@@ -71,8 +69,7 @@ public abstract class ResponseObserver<T> implements Observer<T> {
             BaseResponse response = (BaseResponse) t;
             if (response.code != 0) {   //请求失败
                 if (showErrorMsg)
-                    //onFail(response.code, response.message);
-                    onCompleted();
+                    onComplete();
                 return;
             }
         }
@@ -80,7 +77,7 @@ public abstract class ResponseObserver<T> implements Observer<T> {
         //成功方法
         try {
             onSuccess(t);
-            onCompleted();
+            onComplete();
         } catch (Exception e) {
             e.printStackTrace();
             onError(e);
@@ -91,10 +88,15 @@ public abstract class ResponseObserver<T> implements Observer<T> {
      * 完成回调
      */
     @Override
-    public void onCompleted() {
+    public void onComplete() {
         if (mAutoDismiss) {
             dismiss();
         }
+    }
+
+    @Override
+    public void onSubscribe(Disposable d) {
+
     }
 
     /**
@@ -104,9 +106,12 @@ public abstract class ResponseObserver<T> implements Observer<T> {
      */
     @Override
     public void onError(Throwable e) {
-        onCompleted();
-        e.printStackTrace();
-        ExceptionEngine.handleException(e);
+        onComplete();
+        try {
+            onError(ApiException.handleException(e));
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
     }
 
     /**

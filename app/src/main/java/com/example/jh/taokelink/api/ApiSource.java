@@ -1,16 +1,14 @@
 package com.example.jh.taokelink.api;
 
 import com.example.jh.taokelink.entity.Categorys;
-import com.example.jh.taokelink.entity.CopyBean;
-import com.example.jh.taokelink.http.BaseArrayResponse;
+import com.example.jh.taokelink.entity.SystemBean;
 import com.example.jh.taokelink.http.BaseResponse;
 import com.example.jh.taokelink.http.RetrofitHelper;
 import com.example.jh.taokelink.http.RxUtils;
 
 import java.util.Map;
 
-import retrofit2.http.Field;
-import rx.Observable;
+import io.reactivex.Observable;
 
 
 /**
@@ -44,6 +42,17 @@ public class ApiSource implements ApiService {
         return instance;
     }
 
+    /**
+     * 系统初始化
+     *
+     * @return
+     * @param map
+     */
+
+    @Override
+    public Observable<BaseResponse<SystemBean>> getSystem(Map<String, Object> map) {
+        return getApi().getSystem(map).compose(RxUtils.<BaseResponse<SystemBean>>rxSchedulerHelper());
+    }
 
     @Override
     public Observable<BaseResponse<Categorys>> getSalesSellerEntryList(int start, int count) {
@@ -52,7 +61,7 @@ public class ApiSource implements ApiService {
     }
 
     @Override
-    public Observable<BaseResponse<CopyBean>> getCopyData(Map<String, Object> map) {
-        return getApi().getCopyData(map).compose(RxUtils.<BaseResponse<CopyBean>>rxSchedulerHelper());
+    public Observable<BaseResponse<String>> getCopyData(int page) {
+        return getApi().getCopyData(page).compose(RxUtils.<BaseResponse<String>>rxSchedulerHelper());
     }
 }

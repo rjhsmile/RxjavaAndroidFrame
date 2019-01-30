@@ -2,9 +2,10 @@ package com.example.jh.taokelink.http;
 
 import java.util.concurrent.TimeUnit;
 
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import io.reactivex.ObservableSource;
+import io.reactivex.ObservableTransformer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 
 /**
@@ -18,12 +19,13 @@ public class RxUtils {
      * @param <T>
      * @return
      */
-    public static <T> Observable.Transformer<T, T> rxSchedulerHelper() {
-        return new Observable.Transformer<T, T>() {
+    public static <T> ObservableTransformer<T, T> rxSchedulerHelper() {
+
+        return new ObservableTransformer<T, T>() {
             @Override
-            public Observable<T> call(Observable<T> observable) {
-                return observable.subscribeOn(Schedulers.io()) //网络请求是在子线程的
-                        .observeOn(AndroidSchedulers.mainThread());//界面更新在主线程
+            public ObservableSource<T> apply(io.reactivex.Observable<T> observable) {
+                return observable.subscribeOn(Schedulers.io())
+                        .unsubscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
             }
         };
     }
@@ -35,16 +37,15 @@ public class RxUtils {
      * @param <T>
      * @return
      */
-    public static <T> Observable.Transformer<T, T> rxSchedulerHelper(final int delaySeconds) {
-        return new Observable.Transformer<T, T>() {
+    public static <T> ObservableTransformer<T, T> rxSchedulerHelper(final int delayTime) {
+        return new ObservableTransformer<T, T>() {
             @Override
-            public Observable<T> call(Observable<T> observable) {
+            public ObservableSource<T> apply(io.reactivex.Observable<T> observable) {
                 return observable
-                        .delay(delaySeconds * 1000, TimeUnit.MICROSECONDS)//表示延时多少秒后执行
-                        .subscribeOn(Schedulers.io())//网络请求是在子线程的
-                        .observeOn(AndroidSchedulers.mainThread());//界面更新在主线程
+                        .subscribeOn(Schedulers.io())
+                        .delay(delayTime * 1000, TimeUnit.MILLISECONDS)
+                        .unsubscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
             }
         };
     }
-
 }

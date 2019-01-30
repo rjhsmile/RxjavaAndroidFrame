@@ -93,9 +93,10 @@ public class MainActivity extends BaseActivity {
                 }
             }, 3000);
         } else {
-            Intent MyIntent = new Intent(Intent.ACTION_MAIN);
+           /* Intent MyIntent = new Intent(Intent.ACTION_MAIN);
             MyIntent.addCategory(Intent.CATEGORY_HOME);
-            startActivity(MyIntent);
+            startActivity(MyIntent);*/
+           finish();
         }
     }
 }

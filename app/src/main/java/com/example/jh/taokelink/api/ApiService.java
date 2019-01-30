@@ -1,18 +1,15 @@
 package com.example.jh.taokelink.api;
 
 import com.example.jh.taokelink.entity.Categorys;
-import com.example.jh.taokelink.entity.CopyBean;
-import com.example.jh.taokelink.http.BaseArrayResponse;
+import com.example.jh.taokelink.entity.SystemBean;
 import com.example.jh.taokelink.http.BaseResponse;
 
 import java.util.Map;
 
+import io.reactivex.Observable;
 import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.QueryMap;
-import rx.Observable;
 
 /**
  * 作者： Created by${raojianhui}
@@ -26,23 +23,31 @@ public interface ApiService {
     /**
      * 系统初始化
      *
-     * @return
+     * @param map
      */
-    @FormUrlEncoded
-    @POST("v2/movie/top250")
-    Observable<BaseResponse<Categorys>> getSalesSellerEntryList(
-            @Field("start") int start , @Field("count") int count
+    @POST("init")
+    Observable<BaseResponse<SystemBean>> getSystem(
+            @QueryMap Map<String, Object> map
     );
 
     /**
-     * 口令查询接口
+     * 系统初始化
      *
-     * @param map
      * @return
      */
-    @POST("api/search/paste_item")
-    Observable<BaseResponse<CopyBean>> getCopyData(
-            @QueryMap Map<String, Object> map
+    @POST("v2/movie/top250")
+    Observable<BaseResponse<Categorys>> getSalesSellerEntryList(
+            @Field("start") int start, @Field("count") int count
+    );
+
+    /**
+     * 查询接口
+     *
+     * @return
+     */
+    @POST("/api/recommend")
+    Observable<BaseResponse<String>> getCopyData(
+            @Field("page") int page
     );
 
 }
