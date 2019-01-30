@@ -27,23 +27,12 @@ public class ParamsInterceptor1 implements Interceptor {
 
     @Override
     public Response intercept(Chain chain) throws IOException {
-
         Request request = chain.request();
-
-        //添加请求头
-      /*  request = request.newBuilder()
-                .addHeader("appId", Keys.appkey)
-                .addHeader("platform", "1")
-                .addHeader("version", "31")
-                .addHeader("timestamp", String.valueOf(System.currentTimeMillis()))
-                //.addHeader("sign", singnParam(request))
-                .build();*/
         if (request.method().equals("GET")) {
             request = addGetParams(request);
         } else if (request.method().equals("POST")) {
             request = addPostParams(request);
         }
-
         return chain.proceed(request);
     }
 
@@ -91,7 +80,7 @@ public class ParamsInterceptor1 implements Interceptor {
             }
 
             formBody = bodyBuilder
-                    .addEncoded("appId", Constants.AppId)
+                    //.addEncoded("appId", Constants.AppId)
                     .addEncoded("platform", "1")
                     .addEncoded("timestamp", String.valueOf(System.currentTimeMillis()))
                     .addEncoded("version", "1")
@@ -109,7 +98,7 @@ public class ParamsInterceptor1 implements Interceptor {
                 builder.append(nameList.get(i)).append("=")
                         .append(URLDecoder.decode(bodyMap.get(nameList.get(i)), "UTF-8")).append("&");
             }
-            builder.append("&api_token").append("=").append(Constants.ApiToken);
+            builder.append("api_token").append("=").append(Constants.ApiToken);
             formBody = bodyBuilder.addEncoded("sign", Md5Util.md5(builder.toString())).build();
             request = request.newBuilder().post(formBody).build();
         }

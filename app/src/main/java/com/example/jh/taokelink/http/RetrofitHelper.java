@@ -1,9 +1,13 @@
 package com.example.jh.taokelink.http;
+import com.example.jh.taokelink.App;
 import com.example.jh.taokelink.BuildConfig;
 import com.example.jh.taokelink.Constants;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
+
+import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -36,14 +40,14 @@ public class RetrofitHelper {
 
     public static <T> T createApi(Class<T> clazz, String baseUrl) {
 
-       /* HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-        File cacheFile = new File(App.getInstance().getCacheDir(), "cache");
+        /*File cacheFile = new File(App.getInstance().getCacheDir(), "cache");
         Cache cache = new Cache(cacheFile, 1024 * 1024 * 50); //50Mb*/
 
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        //builder.addInterceptor(new ParamsInterceptor());
+        builder.addInterceptor(new ParamsInterceptor1());
         if (BuildConfig.DEBUG) {
             HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -58,7 +62,6 @@ public class RetrofitHelper {
         //错误重连
         builder.retryOnConnectionFailure(true);
         okHttpClient = builder.build();
-
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)

@@ -60,7 +60,7 @@ public class MainFragment extends BaseFragment {
         map.put("timestamp",String.valueOf(System.currentTimeMillis()));
         map.put("version","1");
         map.put("sign",sign());
-        ApiSource.getInstance().getSystem(map ).subscribe(new ResponseObserver<BaseResponse<SystemBean>>(getActivity(), true) {
+        ApiSource.getInstance().getSystem(Constants.AppId).subscribe(new ResponseObserver<BaseResponse<SystemBean>>(getActivity(), true) {
             @Override
             public void onSuccess(BaseResponse<SystemBean> systemBeanBaseResponse) {
 

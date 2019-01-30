@@ -8,6 +8,7 @@ import java.util.Map;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 import retrofit2.http.QueryMap;
 
@@ -23,11 +24,17 @@ public interface ApiService {
     /**
      * 系统初始化
      *
-     * @param map
+     * @param appId
+     * @param platform
+     * @param timestamp
+     * @param version
+     * @param sign
+     * @return
      */
+    @FormUrlEncoded
     @POST("init")
     Observable<BaseResponse<SystemBean>> getSystem(
-            @QueryMap Map<String, Object> map
+            @Field("appId") String appId
     );
 
     /**
