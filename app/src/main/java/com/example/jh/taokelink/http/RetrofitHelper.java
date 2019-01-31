@@ -1,13 +1,11 @@
 package com.example.jh.taokelink.http;
-import com.example.jh.taokelink.App;
+
 import com.example.jh.taokelink.BuildConfig;
 import com.example.jh.taokelink.Constants;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
-import java.io.File;
 import java.util.concurrent.TimeUnit;
 
-import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -15,6 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by lenovo on 2018/4/3.
+ * OkHttpClient和Retrofit结合使用更简单
  */
 
 public class RetrofitHelper {
@@ -47,7 +46,7 @@ public class RetrofitHelper {
         Cache cache = new Cache(cacheFile, 1024 * 1024 * 50); //50Mb*/
 
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        builder.addInterceptor(new ParamsInterceptor1());
+        builder.addInterceptor(new ParamsInterceptor());
         if (BuildConfig.DEBUG) {
             HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -67,9 +66,11 @@ public class RetrofitHelper {
                 .baseUrl(baseUrl)
                 .client(okHttpClient)//设置OkHttp
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())  //rx与Gson混用
+                .addConverterFactory(GsonConverterFactory.create())  //gson转化器
                 .build();
 
         return retrofit.create(clazz);
     }
+
+
 }

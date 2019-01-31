@@ -11,4 +11,6 @@ public class Keys {
 
     //下一个界面key
     public static final String next_activity = "NextActivity";
+
+    public static final int CODE_SUCCESS = 10000;
 }

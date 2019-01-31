@@ -46,11 +46,12 @@ public class ApiSource implements ApiService {
      * 系统初始化
      *
      * @return
+     * @param map
      */
 
     @Override
-    public Observable<BaseResponse<SystemBean>> getSystem(String appId) {
-        return getApi().getSystem(appId).compose(RxUtils.<BaseResponse<SystemBean>>rxSchedulerHelper());
+    public Observable<BaseResponse<SystemBean>> getSystem(Map<String, Object> map) {
+        return getApi().getSystem(map).compose(RxUtils.<BaseResponse<SystemBean>>rxSchedulerHelper());
     }
 
     @Override

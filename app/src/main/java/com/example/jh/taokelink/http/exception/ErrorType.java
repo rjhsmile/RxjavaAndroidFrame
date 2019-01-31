@@ -10,7 +10,7 @@ public interface ErrorType {
     /**
      * 请求成功
      */
-    int SUCCESS = 200;
+    int SUCCESS = 10000;
     /**
      * 没有登录无权限
      */

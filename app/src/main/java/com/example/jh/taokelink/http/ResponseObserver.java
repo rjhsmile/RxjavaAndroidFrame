@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.example.jh.taokelink.R;
 import com.example.jh.taokelink.http.exception.ApiException;
+import com.example.jh.taokelink.utils.Keys;
 import com.example.jh.taokelink.widget.nicedialog.BaseNiceDialog;
 import com.example.jh.taokelink.widget.nicedialog.NiceDialog;
 
@@ -67,7 +68,7 @@ public abstract class ResponseObserver<T> implements Observer<T> {
         //失败方法
         if (t instanceof BaseResponse || t instanceof BaseArrayResponse) {
             BaseResponse response = (BaseResponse) t;
-            if (response.code != 0) {   //请求失败
+            if (response.code != Keys.CODE_SUCCESS) {   //请求失败
                 if (showErrorMsg)
                     onComplete();
                 return;
