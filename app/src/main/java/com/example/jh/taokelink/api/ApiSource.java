@@ -1,6 +1,5 @@
 package com.example.jh.taokelink.api;
 
-import com.example.jh.taokelink.entity.Categorys;
 import com.example.jh.taokelink.entity.SystemBean;
 import com.example.jh.taokelink.http.BaseResponse;
 import com.example.jh.taokelink.http.RetrofitHelper;
@@ -52,12 +51,6 @@ public class ApiSource implements ApiService {
     @Override
     public Observable<BaseResponse<SystemBean>> getSystem(Map<String, Object> map) {
         return getApi().getSystem(map).compose(RxUtils.<BaseResponse<SystemBean>>rxSchedulerHelper());
-    }
-
-    @Override
-    public Observable<BaseResponse<Categorys>> getSalesSellerEntryList(int start, int count) {
-        return getApi().getSalesSellerEntryList(start, count).
-                compose(RxUtils.<BaseResponse<Categorys>>rxSchedulerHelper());
     }
 
     @Override

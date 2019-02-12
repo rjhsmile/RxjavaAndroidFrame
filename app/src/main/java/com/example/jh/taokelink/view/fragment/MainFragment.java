@@ -3,22 +3,14 @@ package com.example.jh.taokelink.view.fragment;
 import android.widget.Toast;
 
 import com.example.jh.taokelink.BaseFragment;
-import com.example.jh.taokelink.Constants;
 import com.example.jh.taokelink.R;
 import com.example.jh.taokelink.api.ApiSource;
-import com.example.jh.taokelink.entity.Categorys;
 import com.example.jh.taokelink.entity.SystemBean;
 import com.example.jh.taokelink.http.BaseResponse;
 import com.example.jh.taokelink.http.ResponseObserver;
-import com.example.jh.taokelink.http.exception.ApiException;
-import com.example.jh.taokelink.utils.Keys;
-import com.example.jh.taokelink.utils.Md5Util;
-import com.example.jh.taokelink.utils.ToastUtils;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import io.reactivex.disposables.Disposable;
 
 /**
  * @author：rjhsmile
@@ -38,11 +30,12 @@ public class MainFragment extends BaseFragment {
             }
 
             @Override
-            public void onError(ApiException e) {
-                ToastUtils.show(e.meg);
+            public void onFail(int code, String message) {
+                Toast.makeText(getActivity(), code + message, Toast.LENGTH_SHORT).show();
             }
         });
     }
+
 
     @Override
     protected int getLayoutResource() {

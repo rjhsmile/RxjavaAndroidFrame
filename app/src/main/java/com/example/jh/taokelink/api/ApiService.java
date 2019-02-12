@@ -1,6 +1,5 @@
 package com.example.jh.taokelink.api;
 
-import com.example.jh.taokelink.entity.Categorys;
 import com.example.jh.taokelink.entity.SystemBean;
 import com.example.jh.taokelink.http.BaseResponse;
 
@@ -31,16 +30,6 @@ public interface ApiService {
     @POST("init")
     Observable<BaseResponse<SystemBean>> getSystem(
             @FieldMap Map<String, Object> map
-    );
-
-    /**
-     * 系统初始化
-     *
-     * @return
-     */
-    @POST("v2/movie/top250")
-    Observable<BaseResponse<Categorys>> getSalesSellerEntryList(
-            @Field("start") int start, @Field("count") int count
     );
 
     /**

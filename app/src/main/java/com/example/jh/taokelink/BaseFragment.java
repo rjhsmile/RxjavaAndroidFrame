@@ -19,9 +19,10 @@ public abstract class BaseFragment extends Fragment {
     private View mCacheView;
     private Unbinder unbinder;
 
-    protected abstract void initView();
-
     protected abstract int getLayoutResource();
+
+
+    protected abstract void initView();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

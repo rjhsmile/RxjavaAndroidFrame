@@ -1,11 +1,13 @@
 package com.example.jh.taokelink.http;
 
-import com.example.jh.taokelink.BuildConfig;
+import com.example.jh.taokelink.App;
 import com.example.jh.taokelink.Constants;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -39,34 +41,32 @@ public class RetrofitHelper {
 
     public static <T> T createApi(Class<T> clazz, String baseUrl) {
 
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        /* File cacheFile = new File(App.getContext().getCacheDir(), "cache");
+        Cache cache = new Cache(cacheFile, 1024 * 1024 * 50); //50Mb
+        CookieManager cookieManager = new CookieManager();
+        cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);*/
 
-        /*File cacheFile = new File(App.getInstance().getCacheDir(), "cache");
-        Cache cache = new Cache(cacheFile, 1024 * 1024 * 50); //50Mb*/
+        //LOG打印
+        HttpLoggingInterceptor logInterceptor = new HttpLoggingInterceptor();
+        logInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-        OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        builder.addInterceptor(new ParamsInterceptor());
-        if (BuildConfig.DEBUG) {
-            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-            builder.addInterceptor(loggingInterceptor);
-        }
-        //设置超时
-        builder.connectTimeout(TIME, TimeUnit.SECONDS);
-        builder.readTimeout(TIME, TimeUnit.SECONDS);
-        builder.writeTimeout(TIME, TimeUnit.SECONDS);
-        //设置缓存
-        //builder.cache(cache);
-        //错误重连
-        builder.retryOnConnectionFailure(true);
-        okHttpClient = builder.build();
+
+        okHttpClient = new OkHttpClient.Builder()
+                .addInterceptor(new ParamsInterceptor())//公共参数添加拦截器
+                .addInterceptor(logInterceptor)//日志打印拦截器
+                //.cache(cache).addInterceptor(new CacheInterceptor())//设置缓存拦截器
+                //.cookieJar(new JavaNetCookieJar(cookieManager))//设置cookie
+                .connectTimeout(TIME, TimeUnit.SECONDS)//设置超时
+                .readTimeout(TIME, TimeUnit.SECONDS)
+                .writeTimeout(TIME, TimeUnit.SECONDS)
+                .retryOnConnectionFailure(true)//错误重连
+                .build();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .client(okHttpClient)//设置OkHttp
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())  //gson转化器
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())//RxJava 适配器
+                .addConverterFactory(GsonConverterFactory.create())  //Json 转换器
                 .build();
 
         return retrofit.create(clazz);

@@ -3,10 +3,14 @@ package com.example.jh.taokelink.http;
 
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
+import com.example.jh.taokelink.App;
 import com.example.jh.taokelink.R;
 import com.example.jh.taokelink.http.exception.ApiException;
+import com.example.jh.taokelink.http.exception.ErrorType;
 import com.example.jh.taokelink.utils.Keys;
+import com.example.jh.taokelink.utils.ToastUtils;
 import com.example.jh.taokelink.widget.nicedialog.BaseNiceDialog;
 import com.example.jh.taokelink.widget.nicedialog.NiceDialog;
 
@@ -33,7 +37,7 @@ public abstract class ResponseObserver<T> implements Observer<T> {
      */
     public abstract void onSuccess(T t);
 
-    public abstract void onError(ApiException e);
+    public abstract void onFail(int code, String message);
 
     public ResponseObserver(Context context) {
         mContext = context;
@@ -70,6 +74,7 @@ public abstract class ResponseObserver<T> implements Observer<T> {
             BaseResponse response = (BaseResponse) t;
             if (response.code != Keys.CODE_SUCCESS) {   //请求失败
                 if (showErrorMsg)
+                    ToastUtils.show(mContext.getString(R.string.service_connect_failed));
                     onComplete();
                 return;
             }
@@ -78,7 +83,6 @@ public abstract class ResponseObserver<T> implements Observer<T> {
         //成功方法
         try {
             onSuccess(t);
-            onComplete();
         } catch (Exception e) {
             e.printStackTrace();
             onError(e);
@@ -109,7 +113,8 @@ public abstract class ResponseObserver<T> implements Observer<T> {
     public void onError(Throwable e) {
         onComplete();
         try {
-            onError(ApiException.handleException(e));
+            ApiException mException = ApiException.handleException(e);
+            onFail(mException.code, mException.meg);
         } catch (Exception e1) {
             e1.printStackTrace();
         }
