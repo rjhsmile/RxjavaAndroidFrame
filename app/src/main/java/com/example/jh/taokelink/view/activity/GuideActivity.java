@@ -57,6 +57,11 @@ public class GuideActivity extends BaseActivity implements ViewPager.OnPageChang
         }*/
     }
 
+    @Override
+    protected void initData() {
+
+    }
+
     /**
      * 引导页
      */

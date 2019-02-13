@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -15,19 +16,21 @@ import butterknife.Unbinder;
  */
 
 public abstract class BaseFragment extends Fragment {
+    public String TAG = this.getClass().getName();
     private Activity mActivity;
     private View mCacheView;
     private Unbinder unbinder;
 
     protected abstract int getLayoutResource();
 
-
     protected abstract void initView();
+
+    protected abstract void initData();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.mActivity=getActivity();
+        this.mActivity = getActivity();
     }
 
     /**
@@ -49,11 +52,17 @@ public abstract class BaseFragment extends Fragment {
         if (parent != null) {
             parent.removeView(mCacheView);
         }
-        unbinder= ButterKnife.bind(this, mCacheView);
+        unbinder = ButterKnife.bind(this, mCacheView);
 
         initView();
 
         return mCacheView;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        initData();
     }
 
     @Override

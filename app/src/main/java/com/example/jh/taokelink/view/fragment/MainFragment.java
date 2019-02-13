@@ -20,27 +20,32 @@ import java.util.Map;
  */
 
 public class MainFragment extends BaseFragment {
-    @Override
-    protected void initView() {
-        Map<String, Object> map = new HashMap<>();
-        ApiSource.getInstance().getSystem(map).subscribe(new ResponseObserver<BaseResponse<SystemBean>>(getActivity(), true) {
-            @Override
-            public void onSuccess(BaseResponse<SystemBean> response) {
-                Toast.makeText(getActivity(), response.msg, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFail(int code, String message) {
-                Toast.makeText(getActivity(), code + message, Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
 
     @Override
     protected int getLayoutResource() {
         return R.layout.empty_view;
     }
 
+    @Override
+    protected void initView() {
 
+
+    }
+
+    @Override
+    public void initData() {
+        Map<String, Object> map = new HashMap<>();
+        ApiSource.getInstance().getSystem(map).subscribe(//子线程执行订阅
+                new ResponseObserver<BaseResponse<SystemBean>>(getActivity(), true) {
+                    @Override
+                    public void onSuccess(BaseResponse<SystemBean> response) {
+                        Toast.makeText(getActivity(), response.msg, Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFail(int code, String message) {
+                        Toast.makeText(getActivity(), code + message, Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
 }

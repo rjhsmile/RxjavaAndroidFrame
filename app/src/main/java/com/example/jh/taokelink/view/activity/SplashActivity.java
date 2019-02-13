@@ -27,6 +27,11 @@ public class SplashActivity extends BaseActivity {
         }, 1000);
     }
 
+    @Override
+    protected void initData() {
+
+    }
+
     private void startNextActivity() {
         //1.读取状态信息？
         SPUtils sp = new SPUtils(this);

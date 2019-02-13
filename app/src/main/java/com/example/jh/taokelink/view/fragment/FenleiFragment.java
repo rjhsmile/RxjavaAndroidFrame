@@ -22,6 +22,11 @@ public class FenleiFragment extends BaseFragment {
     }
 
     @Override
+    protected void initData() {
+
+    }
+
+    @Override
     protected int getLayoutResource() {
           return R.layout.empty_view;
     }

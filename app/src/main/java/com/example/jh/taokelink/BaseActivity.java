@@ -10,9 +10,13 @@ import butterknife.ButterKnife;
  */
 
 public abstract class BaseActivity extends AppCompatActivity {
+    public String TAG=this.getClass().getName();
+
+    protected abstract int getLayoutResource();
 
     protected abstract void initView();
-    protected abstract int getLayoutResource();
+
+    protected abstract void initData();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -24,6 +28,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         //初始化控件
         ButterKnife.bind(this);
         initView();
+        initData();
     }
 
     @Override

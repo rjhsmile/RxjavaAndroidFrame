@@ -1,13 +1,8 @@
 package com.example.jh.taokelink.http;
 
-import com.example.jh.taokelink.App;
 import com.example.jh.taokelink.Constants;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-
-import java.io.File;
 import java.util.concurrent.TimeUnit;
-
-import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;

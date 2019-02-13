@@ -3,13 +3,10 @@ package com.example.jh.taokelink.http;
 
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
 
-import com.example.jh.taokelink.App;
 import com.example.jh.taokelink.R;
 import com.example.jh.taokelink.http.exception.ApiException;
 import com.example.jh.taokelink.http.exception.ErrorType;
-import com.example.jh.taokelink.utils.Keys;
 import com.example.jh.taokelink.utils.ToastUtils;
 import com.example.jh.taokelink.widget.nicedialog.BaseNiceDialog;
 import com.example.jh.taokelink.widget.nicedialog.NiceDialog;
@@ -19,7 +16,9 @@ import io.reactivex.disposables.Disposable;
 
 
 /**
- * 数据返回
+ * 被观察者：接口
+ * 观察者：界面
+ * 界面发现接口数据变化就显示在界面上
  *
  * @param <T>
  */
@@ -61,6 +60,10 @@ public abstract class ResponseObserver<T> implements Observer<T> {
         }
     }
 
+    @Override
+    public void onSubscribe(Disposable d) {
+
+    }
 
     /**
      * 成功方法回调
@@ -72,10 +75,10 @@ public abstract class ResponseObserver<T> implements Observer<T> {
         //失败方法
         if (t instanceof BaseResponse || t instanceof BaseArrayResponse) {
             BaseResponse response = (BaseResponse) t;
-            if (response.code != Keys.CODE_SUCCESS) {   //请求失败
+            if (response.code != ErrorType.SUCCESS) {   //请求失败
                 if (showErrorMsg)
                     ToastUtils.show(mContext.getString(R.string.service_connect_failed));
-                    onComplete();
+                onComplete();
                 return;
             }
         }
@@ -87,21 +90,6 @@ public abstract class ResponseObserver<T> implements Observer<T> {
             e.printStackTrace();
             onError(e);
         }
-    }
-
-    /**
-     * 完成回调
-     */
-    @Override
-    public void onComplete() {
-        if (mAutoDismiss) {
-            dismiss();
-        }
-    }
-
-    @Override
-    public void onSubscribe(Disposable d) {
-
     }
 
     /**
@@ -121,18 +109,32 @@ public abstract class ResponseObserver<T> implements Observer<T> {
     }
 
     /**
+     * 完成回调
+     */
+    @Override
+    public void onComplete() {
+        if (mAutoDismiss) {
+            dismiss();
+        }
+    }
+
+    /**
      * 加载框
      */
     public void showProgressBar() {
-        AppCompatActivity mActivity = (AppCompatActivity) mContext;
-        //初始化加载框
-        progressBar = NiceDialog.init()
-                .setLayoutId(R.layout.dialog_progress)
-                .setWidth(100)
-                .setHeight(100)
-                .setDimAmount(0.1f)
-                .setOutCancel(true)
-                .show(mActivity.getSupportFragmentManager());
+        try {
+            AppCompatActivity mActivity = (AppCompatActivity) mContext;
+            //初始化加载框
+            progressBar = NiceDialog.init()
+                    .setLayoutId(R.layout.dialog_progress)
+                    .setWidth(100)
+                    .setHeight(100)
+                    .setDimAmount(0.1f)
+                    .setOutCancel(true)
+                    .show(mActivity.getSupportFragmentManager());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
