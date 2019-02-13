@@ -1,6 +1,9 @@
 package com.example.jh.taokelink.http;
 
 import android.util.Log;
+
+import com.trello.rxlifecycle2.android.ActivityEvent;
+
 import java.util.concurrent.TimeUnit;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;

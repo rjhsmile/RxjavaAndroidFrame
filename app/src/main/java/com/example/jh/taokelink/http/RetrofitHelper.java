@@ -2,7 +2,9 @@ package com.example.jh.taokelink.http;
 
 import com.example.jh.taokelink.Constants;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+
 import java.util.concurrent.TimeUnit;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -15,9 +17,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitHelper {
 
-    private static int TIME = 10;
+    private int TIME = 10;
     private static RetrofitHelper retrofitHelper;
-    private static OkHttpClient okHttpClient = null;
+    private OkHttpClient okHttpClient = null;
 
     public static RetrofitHelper getInstance() {
         if (null == retrofitHelper) {
@@ -30,11 +32,11 @@ public class RetrofitHelper {
         return retrofitHelper;
     }
 
-    public static <T> T createApi(Class<T> clazz) {
+    public <T> T createApi(Class<T> clazz) {
         return createApi(clazz, Constants.BASE_URL);
     }
 
-    public static <T> T createApi(Class<T> clazz, String baseUrl) {
+    public <T> T createApi(Class<T> clazz, String baseUrl) {
 
         /* File cacheFile = new File(App.getContext().getCacheDir(), "cache");
         Cache cache = new Cache(cacheFile, 1024 * 1024 * 50); //50Mb
@@ -67,5 +69,11 @@ public class RetrofitHelper {
         return retrofit.create(clazz);
     }
 
+    /**
+     * 接口取消
+     */
+    public void CancelHttp() {
+        okHttpClient.dispatcher().cancelAll();
+    }
 
 }

@@ -13,4 +13,7 @@ public class Keys {
     public static final String next_activity = "NextActivity";
 
     public static final int CODE_SUCCESS = 10000;
+
+    //Rxbus消息
+    public static final int EVENT_WHAT_SUCCESS = 10000;
 }

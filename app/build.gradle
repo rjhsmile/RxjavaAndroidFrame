@@ -58,5 +58,9 @@ dependencies {
     //compile 'com.squareup.okhttp3:okhttp-urlconnection:3.2.0'
     //RxBinding
     compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
+    //Rxjava生命周期管理
+    compile 'com.trello.rxlifecycle2:rxlifecycle:2.2.1'
+    compile 'com.trello.rxlifecycle2:rxlifecycle-android:2.2.1'
+    compile 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.1'
 
 }

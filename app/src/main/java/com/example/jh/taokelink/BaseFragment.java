@@ -3,23 +3,32 @@ package com.example.jh.taokelink;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.trello.rxlifecycle2.components.support.RxFragment;
+
+import java.util.concurrent.TimeUnit;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.reactivex.Observable;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by Administrator on 2018-03-04.
  */
 
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends RxFragment {
     public String TAG = this.getClass().getName();
     private Activity mActivity;
     private View mCacheView;
     private Unbinder unbinder;
+    public CompositeDisposable mCompositeDisposable;
 
     protected abstract int getLayoutResource();
 
@@ -54,10 +63,13 @@ public abstract class BaseFragment extends Fragment {
         }
         unbinder = ButterKnife.bind(this, mCacheView);
 
+        mCompositeDisposable = new CompositeDisposable();//Rxjava订阅初始化
+
         initView();
 
         return mCacheView;
     }
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -69,5 +81,6 @@ public abstract class BaseFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        mCompositeDisposable.dispose();
     }
 }
