@@ -58,7 +58,6 @@ public class MainFragment extends BaseFragment {
                     public void onSuccess(BaseResponse<SystemBean> response) {
                         Toast.makeText(mActivity, response.msg, Toast.LENGTH_SHORT).show();
                     }
-
                     @Override
                     public void onFail(int code, String message) {
                         Toast.makeText(mActivity, code + message, Toast.LENGTH_SHORT).show();
