@@ -47,7 +47,6 @@ public class RetrofitHelper {
         HttpLoggingInterceptor logInterceptor = new HttpLoggingInterceptor();
         logInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-
         okHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(new ParamsInterceptor())//公共参数添加拦截器
                 .addInterceptor(logInterceptor)//日志打印拦截器

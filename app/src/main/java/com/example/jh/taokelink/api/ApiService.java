@@ -3,11 +3,8 @@ package com.example.jh.taokelink.api;
 import com.example.jh.taokelink.entity.SystemBean;
 import com.example.jh.taokelink.http.BaseResponse;
 
-import java.util.Map;
-
 import io.reactivex.Observable;
 import retrofit2.http.Field;
-import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 
@@ -23,13 +20,13 @@ public interface ApiService {
     /**
      * 系统初始化
      *
-     * @param map
+     * @param equipment
      * @return
      */
     @FormUrlEncoded
     @POST("init")
     Observable<BaseResponse<SystemBean>> getSystem(
-            @FieldMap Map<String, Object> map
+            @Field("equipment") String equipment
     );
 
     /**
@@ -40,6 +37,19 @@ public interface ApiService {
     @POST("/api/recommend")
     Observable<BaseResponse<String>> getCopyData(
             @Field("page") int page
+    );
+
+
+    /**
+     * 查询接口
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("/StandardApiAction_login.action")
+    Observable<BaseResponse<String>> videoLogin(
+            @Field("account") String account,
+            @Field("password") String password
     );
 
 }

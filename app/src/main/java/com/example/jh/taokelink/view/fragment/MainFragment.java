@@ -1,6 +1,5 @@
 package com.example.jh.taokelink.view.fragment;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -13,19 +12,8 @@ import com.example.jh.taokelink.http.ResponseObserver;
 import com.example.jh.taokelink.http.RxBus;
 import com.example.jh.taokelink.utils.EventBus;
 import com.example.jh.taokelink.utils.Keys;
-import com.trello.rxlifecycle2.android.ActivityEvent;
-import com.trello.rxlifecycle2.android.FragmentEvent;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
-
 import butterknife.OnClick;
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * @author：rjhsmile
@@ -48,14 +36,15 @@ public class MainFragment extends BaseFragment {
             @Override
             public void accept(EventBus eventType) throws Exception {
                 if (Keys.EVENT_WHAT_SUCCESS == eventType.getType()) {
-                    Disposable mDisposableInterval = Observable.interval(1, 1, TimeUnit.SECONDS).subscribe(new Consumer<Long>() {
+                    initData();
+                   /* Disposable mDisposableInterval = Observable.interval(1, 1, TimeUnit.SECONDS).subscribe(new Consumer<Long>() {
                         @Override
                         public void accept(Long aLong) throws Exception {
                             Log.e(TAG, "accept: " + aLong);
-                            initData();
+
                         }
                     });
-                    mCompositeDisposable.add(mDisposableInterval);
+                    mCompositeDisposable.add(mDisposableInterval);*/
                 }
             }
         });
@@ -63,18 +52,16 @@ public class MainFragment extends BaseFragment {
 
     @Override
     public void initData() {
-        Map<String, Object> map = new HashMap<>();
-        ApiSource.getInstance().getSystem(map)
-                //.compose(this.<BaseResponse<SystemBean>>bindUntilEvent(FragmentEvent.STOP))
+        ApiSource.getInstance().getSystem("AooQ60aPB7QoNsNUmKGc5rtrn_GYij2SgjKx_cxkblyM")
                 .subscribe(new ResponseObserver<BaseResponse<SystemBean>>(getActivity(), true) {
                     @Override
                     public void onSuccess(BaseResponse<SystemBean> response) {
-                        Toast.makeText(getActivity(), response.msg, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mActivity, response.msg, Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onFail(int code, String message) {
-                        Toast.makeText(getActivity(), code + message, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mActivity, code + message, Toast.LENGTH_SHORT).show();
                     }
                 });
     }

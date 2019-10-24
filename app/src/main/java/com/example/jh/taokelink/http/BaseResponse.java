@@ -8,5 +8,5 @@ package com.example.jh.taokelink.http;
 public class BaseResponse<T> {
     public int code;//			响应代码 1:查询成功
     public String msg; //			查询成功 查询失败
-    public T data;
+    public T data;//返回数据
 }

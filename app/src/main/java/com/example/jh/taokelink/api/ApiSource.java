@@ -5,8 +5,6 @@ import com.example.jh.taokelink.http.BaseResponse;
 import com.example.jh.taokelink.http.RetrofitHelper;
 import com.example.jh.taokelink.http.RxUtils;
 
-import java.util.Map;
-
 import io.reactivex.Observable;
 
 
@@ -44,17 +42,22 @@ public class ApiSource implements ApiService {
     /**
      * 系统初始化
      *
+     * @param equipment
      * @return
-     * @param map
      */
 
     @Override
-    public Observable<BaseResponse<SystemBean>> getSystem(Map<String, Object> map) {
-        return getApi().getSystem(map).compose(RxUtils.<BaseResponse<SystemBean>>rxSchedulerHelper());
+    public Observable<BaseResponse<SystemBean>> getSystem(String equipment) {
+        return getApi().getSystem(equipment).compose(RxUtils.<BaseResponse<SystemBean>>rxSchedulerHelper());
     }
 
     @Override
     public Observable<BaseResponse<String>> getCopyData(int page) {
         return getApi().getCopyData(page).compose(RxUtils.<BaseResponse<String>>rxSchedulerHelper());
+    }
+
+    @Override
+    public Observable<BaseResponse<String>> videoLogin(String account, String password) {
+        return getApi().videoLogin(account, password).compose(RxUtils.<BaseResponse<String>>rxSchedulerHelper());
     }
 }
