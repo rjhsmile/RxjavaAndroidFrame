@@ -25,7 +25,7 @@ import io.reactivex.functions.Consumer;
 
 public abstract class BaseFragment extends RxFragment {
     public String TAG = this.getClass().getName();
-    private Activity mActivity;
+    public Activity mActivity;
     private View mCacheView;
     private Unbinder unbinder;
     public CompositeDisposable mCompositeDisposable;
